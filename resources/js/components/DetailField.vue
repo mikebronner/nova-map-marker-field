@@ -23,7 +23,7 @@ export default {
 
     data: function () {
         return {
-            url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+            tileUrl: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             mapOptions: {
                 boxZoom: false,
                 doubleClickZoom: false,
@@ -33,6 +33,12 @@ export default {
                 interactive: false,
             },
         };
+    },
+
+    created: function () {
+        if (this.field.tileProvider !== undefined) {
+            this.tileUrl = this.field.tileProvider;
+        }
     },
 
     computed: {
@@ -100,7 +106,7 @@ export default {
                 @move="mapMoved"
             >
                 <l-tile-layer
-                    :url="url"
+                    :url="tileUrl"
                 ></l-tile-layer>
                 <l-marker
                     :options="markerOptions"

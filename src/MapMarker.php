@@ -77,6 +77,31 @@ class MapMarker extends Field
         return $this->withMeta([__FUNCTION__ => $field]);
     }
 
+    // public function markerIcon(string $url)
+    // {
+    //     return $this->withMeta([__FUNCTION__ => $url]);
+    // }
+
+    // public function markerIconShadow(string $url)
+    // {
+    //     return $this->withMeta([__FUNCTION__ => $url]);
+    // }
+
+    public function searchProvider(string $provider)
+    {
+        return $this->withMeta([__FUNCTION__ => $provider]);
+    }
+
+    public function searchProviderKey(string $key)
+    {
+        return $this->withMeta([__FUNCTION__ => $key]);
+    }
+
+    public function tileProvider(string $url)
+    {
+        return $this->withMeta([__FUNCTION__ => $url]);
+    }
+
     public function resolve($resource, $attribute = null)
     {
         $attribute = $attribute ?? $this->attribute;

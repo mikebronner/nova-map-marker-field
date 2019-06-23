@@ -2,7 +2,7 @@
 import { FormField, HandlesValidationErrors } from 'laravel-nova';
 import L from "leaflet";
 import { LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet';
-import { EsriProvider } from 'leaflet-geosearch';
+import { BingProvider, EsriProvider, GoogleProvider, LocationIQProvider, OpenCageProvider, OpenStreetMapProvider } from 'leaflet-geosearch';
 import VGeosearch from 'vue2-leaflet-geosearch';
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -26,7 +26,7 @@ export default {
 
     data: function () {
         return {
-            url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+            tileUrl: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             geosearchOptions: {
                 provider: new EsriProvider(),
                 showMarker: false,
@@ -36,6 +36,30 @@ export default {
                 interactive: false,
             },
         };
+    },
+
+    created: function () {
+        switch (this.field.searchProvider) {
+            case "bing":
+                this.geosearchOptions.provider = new BingProvider();
+                break;
+            case "google":
+                this.geosearchOptions.provider = new GoogleProvider();
+                break;
+            case "locationiq":
+                this.geosearchOptions.provider = new LocationIQProvider();
+                break;
+            case "opencage":
+                this.geosearchOptions.provider = new OpenCageProvider();
+                break;
+            case "openstreetmap":
+                this.geosearchOptions.provider = new OpenStreetMapProvider();
+                break;
+        }
+
+        if (this.field.tileProvider !== undefined) {
+            this.tileUrl = this.field.tileProvider;
+        }
     },
 
     computed: {
@@ -107,7 +131,7 @@ export default {
                 @move="mapMoved"
             >
                 <l-tile-layer
-                    :url="url"
+                    :url="tileUrl"
                 ></l-tile-layer>
                 <l-marker
                     :options="markerOptions"
