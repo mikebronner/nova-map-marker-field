@@ -20,7 +20,7 @@ This is an MIT-licensed open source project with its ongoing development made po
   php artisan vendor:publish --provider="GeneaLabs\NovaMapMarkerField\Providers\Service"
   ```
 
-## Usage
+## Implementation
 To create the map marker field, all that is necessary is the form label, and the
 remaining options will have defaults applied:
 ```php
@@ -57,6 +57,11 @@ OpenStreetMap:
 MapMarker::make("Location")
     ->tileProvider('http://{s}.somedomain.com/{foo}/{z}/{x}/{y}.png'),
 ```
+
+## Usage
+When creating or editing you can search for an address or city to get the map to the general area you wish to get coordinates for. Then you can precisely position the marker by dragging the map -- the marker will always stay positioned in the middle, while you move the map under it.
+
+When viewing the map in on the detail page, the map and marker are not interactive, and there is no search functionality. However, the user is free to zoom in and out.
 
 ## Screenshots
 ### Create / Edit Field
