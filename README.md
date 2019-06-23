@@ -60,13 +60,12 @@ MapMarker::make("Location")
 
 ## Screenshots
 ### Create / Edit Field
-<img width="1007" alt="Screen Shot 2019-06-23 at 8 17 43 AM" src="https://user-images.githubusercontent.com/1791050/59978392-a5bd8100-9590-11e9-9ab7-576e7a935dff.png">
+<img width="1010" alt="Screen Shot 2019-06-23 at 8 16 52 AM" src="https://user-images.githubusercontent.com/1791050/59978398-b241d980-9590-11e9-9adc-23e5bd9688e0.png">
 
 ### Detail Field
 <img width="1007" alt="Screen Shot 2019-06-23 at 8 17 43 AM" src="https://user-images.githubusercontent.com/1791050/59978392-a5bd8100-9590-11e9-9ab7-576e7a935dff.png">
 
 ### Index Field
-<img width="1007" alt="Screen Shot 2019-06-23 at 8 17 43 AM" src="https://user-images.githubusercontent.com/1791050/59978392-a5bd8100-9590-11e9-9ab7-576e7a935dff.png">
 
 
 ## Commitment to Quality
