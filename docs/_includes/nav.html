@@ -44,6 +44,8 @@
 </nav>
           <hr>
           <h2 class="text-delta">Table of contents</h2>
+          {% toc %}
+          {:toc}
           {% assign children_list = site.pages | sort:"nav_order" %}
           <ul>
             {% for child in children_list %}
