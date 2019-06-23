@@ -6,81 +6,100 @@ description: "Just the Docs is a responsive Jekyll theme with built-in search th
 permalink: /
 ---
 
-# Focus on writing good documentation
-{: .fs-9 }
+# Map Marker Field for Laravel Nova
 
-Just the Docs gives your documentation a jumpstart with a responsive Jekyll theme that is easily customizable and hosted on GitHub Pages.
-{: .fs-6 .fw-300 }
+![laravel-nova-map-marker-field-header](https://user-images.githubusercontent.com/1791050/59978378-86beef00-9590-11e9-9a10-dee8f77f0037.png)
 
-[Get started now](#getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](https://github.com/pmarsceill/just-the-docs){: .btn .fs-5 .mb-4 .mb-md-0 }
+## Supporting This Package
+This is an MIT-licensed open source project with its ongoing development made possible by the support of the community. If you'd like to support this, and our other packages, please consider [becoming a backer or sponsor on Patreon](https://www.patreon.com/mikebronner).
 
----
+## Installation
+1. Install the package:
+  ```sh
+  composer require genealabs/nova-map-marker-field
+  ```
 
-## Getting started
+2. Publish the marker icon assets (this is not necessary if you are specifying
+  your own):
+  ```sh
+  php artisan vendor:publish --provider="GeneaLabs\NovaMapMarkerField\Providers\Service"
+  ```
 
-### Dependencies
-
-Just the Docs is built for [Jekyll](https://jekyllrb.com), a static site generator. View the [quick start guide](https://jekyllrb.com/docs/) for more information. Just the Docs requires no special Jekyll plugins and can run on GitHub Pages' standard Jekyll compiler.
-
-### Quick start: Use as a GitHub Pages remote theme
-
-1. Add Just the Docs to your Jekyll site's `_config.yml` as a [remote theme](https://blog.github.com/2017-11-29-use-any-theme-with-github-pages/)
-```yaml
-remote_theme: pmarsceill/just-the-docs
+## Implementation
+To create the map marker field, all that is necessary is the form label, and the
+remaining options will have defaults applied:
+```php
+MapMarker::make("Location"),
 ```
-<small>You must have GitHub Pages enabled on your repo, one or more Markdown files, and a `_config.yml` file. [See an example repository](https://github.com/pmarsceill/jtd-remote)</small>
 
-### Local installation: Use the gem-based theme
-
-1. Install the Ruby Gem
-```bash
-$ gem install just-the-docs
+### Model Fields
+By default the field will look for `latitude` and `longitude` fields on the
+model. However, if your model uses different names, you may customize them with
+the `->latitude('lat')` and `->longitude('long')` methods:
+```php
+MapMarker::make("Location")
+    ->latitude('lat')
+    ->longitude('long'),
 ```
-```yaml
-# .. or add it to your your Jekyll site’s Gemfile
-gem "just-the-docs"
+
+### Search Provider
+The underlying search capabilities are provided by
+[leaflet-geosearch](https://github.com/smeijer/leaflet-geosearch). Please refer
+to their documentation for provider configuration. By default we use the
+ESRI search provider.
+```php
+MapMarker::make("Location")
+    ->searchProvider('google')
+    ->searchProviderKey('xxxxxxxxxxxxxxxxxxxxxxxxxxx'),
 ```
-2. Add Just the Docs to your Jekyll site’s `_config.yml`
-```yaml
-theme: "just-the-docs"
+
+### Tile Layer
+You are free to use any tile provider that is compatible with
+[Leaflet](https://leafletjs.com/reference-1.5.0.html#tilelayer). Please refer to
+their documentation on tile layer URLs. By default we use tiles provided by
+OpenStreetMap:
+```php
+MapMarker::make("Location")
+    ->tileProvider('http://{s}.somedomain.com/{foo}/{z}/{x}/{y}.png'),
 ```
-3. _Optional:_ Initialize search data (creates `search-data.json`)
-```bash
-$ bundle exec just-the-docs rake search:init
-```
-3. Run you local Jekyll server
-```bash
-$ jekyll serve
-```
-```bash
-# .. or if you're using a Gemfile (bundler)
-$ bundle exec jekyll serve
-```
-4. Point your web browser to [http://localhost:4000](http://localhost:4000)
 
-If you're hosting your site on GitHub Pages, [set up GitHub Pages and Jekyll locally](https://help.github.com/en/articles/setting-up-your-github-pages-site-locally-with-jekyll) so that you can more easily work in your development environment.
+## Usage
+When creating or editing you can search for an address or city to get the map to the general area you wish to get coordinates for. Then you can precisely position the marker by dragging the map -- the marker will always stay positioned in the middle, while you move the map under it.
 
-### Configure Just the Docs
+When viewing the map in on the detail page, the map and marker are not interactive, and there is no search functionality. However, the user is free to zoom in and out.
 
-- [See configuration options]({{ site.baseurl }}{% link docs/configuration.md %})
+## Screenshots
+### Create / Edit Field
+<img width="1010" alt="Screen Shot 2019-06-23 at 8 16 52 AM" src="https://user-images.githubusercontent.com/1791050/59978398-b241d980-9590-11e9-9adc-23e5bd9688e0.png">
 
----
+### Detail Field
+<img width="1007" alt="Screen Shot 2019-06-23 at 8 17 43 AM" src="https://user-images.githubusercontent.com/1791050/59978392-a5bd8100-9590-11e9-9ab7-576e7a935dff.png">
 
-## About the project
+### Index Field
+<img width="1098" alt="Screen Shot 2019-06-23 at 8 32 01 AM" src="https://user-images.githubusercontent.com/1791050/59978478-778c7100-9591-11e9-9610-3c9a59ca12c4.png">
 
-Just the Docs is &copy; 2017-2019 by [Patrick Marsceill](http://patrickmarsceill.com).
+## Commitment to Quality
+During package development I try as best as possible to embrace good design and development practices, to help ensure that this package is as good as it can
+be. My checklist for package development includes:
 
-### License
+-   ✅ Achieve as close to 100% code coverage as possible using unit tests.
+-   ✅ Eliminate any issues identified by SensioLabs Insight and Scrutinizer.
+-   ✅ Be fully PSR1, PSR2, and PSR4 compliant.
+-   ✅ Include comprehensive documentation in README.md.
+-   ✅ Provide an up-to-date CHANGELOG.md which adheres to the format outlined
+    at <http://keepachangelog.com>.
+-   ✅ Have no PHPMD or PHPCS warnings throughout all code.
 
-Just the Docs is distributed by an [MIT license](https://github.com/pmarsceill/just-the-docs/tree/master/LICENSE.txt).
+## Contributing
+Please observe and respect all aspects of the included Code of Conduct <https://github.com/GeneaLabs/nova-map-marker-field/blob/master/CODE_OF_CONDUCT.md>.
 
-### Contributing
+### Reporting Issues
+When reporting issues, please fill out the included template as completely as
+possible. Incomplete issues may be ignored or closed if there is not enough
+information included to be actionable.
 
-When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change. Read more about becoming a contributor in [our GitHub repo](https://github.com/pmarsceill/just-the-docs#contributing).
+### Submitting Pull Requests
+Please review the Contribution Guidelines <https://github.com/GeneaLabs/nova-map-marker-field/blob/master/CONTRIBUTING.md>. Only PRs that meet all criterium will be accepted.
 
-### Code of Conduct
-
-Just the Docs is committed to fostering a welcoming community.
-
-[View our Code of Conduct](https://github.com/pmarsceill/just-the-docs/tree/master/CODE_OF_CONDUCT.md) on our GitHub repository.
+## If you ❤️ open-source software, give the repos you use a ⭐️.
+We have included the awesome `symfony/thanks` composer package as a dev dependency. Let your OS package maintainers know you appreciate them by starring the packages you use. Simply run composer thanks after installing this package. (And not to worry, since it's a dev-dependency it won't be installed in your live environment.)
