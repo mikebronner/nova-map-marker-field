@@ -53,7 +53,7 @@
           {% endif %}
         {% endunless %}
         <div id="main-content" class="page-content" role="main">
-          {% include anchor_headings.html html=content %}
+          {% include anchor_headings.html html=content beforeHeading=true %}
 
           {% if page.has_children == true and page.has_toc != false %}
           <hr>
