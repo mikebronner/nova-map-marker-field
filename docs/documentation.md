@@ -3,7 +3,7 @@ layout: default
 title: Documentation
 nav_order: 2
 ---
-#Documentation
+# Documentation
 ## Installation
 1. Install the package:
   ```sh
