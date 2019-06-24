@@ -76,14 +76,13 @@
   <script type="text/javascript">
     // var elm = document.querySelector('#menu');
     // var ms = new MenuSpy(document.querySelector('#menu'));
-        // window.onload = function () {
+        window.onload = function () {
           // $("#menu").scrollspy();
             scrollSpy('#menu', {
               sectionClass: '.scrollspy',
-              menuActiveTarget: 'li > a',
-              offset: 100
+              menuActiveTarget: '.navigation-list-item',
             });
-          // }
+          }
     // $("#menu").scrollspy();
   </script>
 
