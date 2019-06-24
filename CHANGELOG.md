@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
+## [0.1.2] - 2019-06-24
+### Fixed
+- scroll and touch zoom behavior, where the marker would move off center when
+  zooming.
+- Fixed update method.
+
 ## [0.1.1] - 2019-06-23
 ### Added
 - option to customize tile provider.
