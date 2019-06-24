@@ -53,7 +53,7 @@
           {% endif %}
         {% endunless %}
         <div id="main-content" class="page-content" role="main">
-          {% include anchor_headings.html html=content beforeHeading=true %}
+          {% include anchor_headings.html html=content beforeHeading=true anchor_class="scrollspy" %}
 
           {% if page.has_children == true and page.has_toc != false %}
           <hr>
@@ -74,16 +74,16 @@
     </div>
   </div>
   <script type="text/javascript">
-    var elm = document.querySelector('#menu');
-    var ms = new MenuSpy(document.querySelector('#menu'));
+    // var elm = document.querySelector('#menu');
+    // var ms = new MenuSpy(document.querySelector('#menu'));
         // window.onload = function () {
-        //   // $("#menu").scrollspy();
-            // scrollSpy('#menu', {
-            //   sectionClass: '.navigation-list-item',
-            //   menuActiveTarget: '.navigation-list-item a',
-            //   offset: 100
-            // });
-          // }
+          $("#menu").scrollspy();
+            scrollSpy('#menu', {
+              sectionClass: '.scrollspy',
+              menuActiveTarget: 'li > a',
+              offset: 100
+            });
+          }
     // $("#menu").scrollspy();
   </script>
 
