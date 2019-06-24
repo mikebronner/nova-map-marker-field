@@ -1,3 +1,8 @@
+---
+layout: default
+title: Code of Conduct
+nav_order: 3
+---
 # Contributor Covenant Code of Conduct
 
 ## Our Pledge

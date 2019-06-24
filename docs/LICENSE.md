@@ -1,3 +1,8 @@
+---
+layout: default
+title: License
+nav_order: 4
+---
 # MIT License
 
 __Copyright (c) 2019 GeneaLabs, LLC__
