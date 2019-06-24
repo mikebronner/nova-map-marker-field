@@ -55,6 +55,23 @@ class MapMarker extends Field
         );
     }
 
+    public function getUpdateRules(NovaRequest $request)
+    {
+        $rules = [
+            "latitude" => is_callable($this->updateRules)
+                ? call_user_func($this->updateRules, $request)
+                : $this->updateRules,
+            "longitude" => is_callable($this->updateRules)
+                ? call_user_func($this->updateRules, $request)
+                : $this->updateRules,
+        ];
+
+        return array_merge_recursive(
+            $this->getRules($request),
+            $rules
+        );
+    }
+
     public function latitude($field)
     {
         if (! is_array($this->attribute)) {
