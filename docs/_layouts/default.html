@@ -74,14 +74,16 @@
     </div>
   </div>
   <script>
-        window.onload = function () {
-          $("#menu").scrollspy();
-            // scrollSpy('#main-menu', {
-            //   sectionClass: '.scrollspy',
-            //   menuActiveTarget: '.menu-item',
-            //   offset: 100
-            // })
-          }
+    var elm = document.querySelector('#main-header');
+    var ms = new MenuSpy(elm);
+        // window.onload = function () {
+        //   // $("#menu").scrollspy();
+        //     scrollSpy('#main-menu', {
+        //       sectionClass: '.scrollspy',
+        //       menuActiveTarget: '.menu-item',
+        //       offset: 100
+        //     })
+        //   }
     // $("#menu").scrollspy();
   </script>
 
