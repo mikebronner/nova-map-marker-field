@@ -78,7 +78,11 @@
     // var ms = new MenuSpy(elm);
         window.onload = function () {
         //   // $("#menu").scrollspy();
-            scrollSpy('#menu');
+            scrollSpy('#menu', {
+              sectionClass: '.navigation-list-item',
+              menuActiveTarget: '.navigation-list-item a',
+              offset: 100
+            })
           }
     // $("#menu").scrollspy();
   </script>
