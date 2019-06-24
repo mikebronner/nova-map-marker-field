@@ -3,3 +3,6 @@ search_enabled: true
 ga_tracking: UA-50642354-2
 title: Nova Map Marker Field
 description: A visual editor for latitude/longitude coordinates for use in Laravel Nova.
+aux_links:
+  "GitHub":
+    - "//github.com/genealabs/nova-map-marker-field"
