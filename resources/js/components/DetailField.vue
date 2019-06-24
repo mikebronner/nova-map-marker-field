@@ -26,8 +26,10 @@ export default {
             tileUrl: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             mapOptions: {
                 boxZoom: false,
-                doubleClickZoom: false,
+                doubleClickZoom: 'center',
                 dragging: false,
+                scrollWheelZoom: 'center',
+                touchZoom: 'center',
             },
             markerOptions: {
                 interactive: false,

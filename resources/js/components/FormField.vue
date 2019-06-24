@@ -32,6 +32,11 @@ export default {
                 showMarker: false,
                 style: "bar",
             },
+            mapOptions: {
+                doubleClickZoom: 'center',
+                scrollWheelZoom: 'center',
+                touchZoom: 'center',
+            },
             markerOptions: {
                 interactive: false,
             },
@@ -126,7 +131,7 @@ export default {
                 class="z-10 map-field w-full form-control form-input-bordered overflow-hidden relative"
                 ref="map"
                 :center="mapCenter"
-                :options="{}"
+                :options="mapOptions"
                 :zoom="zoom"
                 @move="mapMoved"
             >
