@@ -73,5 +73,18 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript">
+    // var elm = document.querySelector('#menu');
+    // var ms = new MenuSpy(document.querySelector('#menu'));
+        window.onload = function () {
+          // $("#menu").scrollspy();
+            scrollSpy('#menu', {
+              sectionClass: '.scrollspy',
+              menuActiveTarget: '.navigation-list-item',
+            });
+          }
+    // $("#menu").scrollspy();
+  </script>
+
 </body>
 </html>

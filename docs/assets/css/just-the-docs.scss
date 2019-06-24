@@ -42,3 +42,7 @@
 @import "./tables";
 @import "./code";
 @import "./utilities/utilities";
+
+.navigation-list-item .active {
+    font-weight: bold;
+}
