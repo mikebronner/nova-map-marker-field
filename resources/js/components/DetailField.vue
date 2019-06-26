@@ -88,8 +88,8 @@ export default {
 
         setInitialValue: function () {
             this.value = {
-                latitude: this.field.value.latitude || 0,
-                longitude: this.field.value.longitude || 0,
+                latitude: this.field.value[this.field.latitude || "latitude"] || 0,
+                longitude: this.field.value[this.field.longitude || "longitude"] || 0,
             };
         },
     },
