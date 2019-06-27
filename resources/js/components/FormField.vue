@@ -94,8 +94,8 @@ export default {
 
     methods: {
         fill: function (formData) {
-			formData.append(this.field.latitude, this.value.latitude);
-            formData.append(this.field.longitude, this.value.longitude);
+			formData.append((this.field.latitude || "latitude"), this.value.latitude);
+            formData.append((this.field.longitude || "longitude"), this.value.longitude);
         },
 
         handleChange: function (value) {
