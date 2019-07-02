@@ -24,6 +24,8 @@ This is an MIT-licensed open source project with its ongoing development made po
 To create the map marker field, all that is necessary is the form label, and the
 remaining options will have defaults applied:
 ```php
+use GeneaLabs\NovaMapMarkerField\MapMarker;
+
 MapMarker::make("Location"),
 ```
 
