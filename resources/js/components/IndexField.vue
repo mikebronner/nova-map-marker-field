@@ -24,6 +24,11 @@ export default {
 <template>
     <span>
         <span
+            v-if="! hasLatitude && ! hasLongitude"
+        >
+            &#8212;
+        </span>
+        <span
             v-if="hasLatitude"
             class="location"
         >

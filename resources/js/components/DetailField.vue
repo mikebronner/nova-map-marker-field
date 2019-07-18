@@ -23,7 +23,7 @@ export default {
 
     data: function () {
         return {
-            tileUrl: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+            tileUrl: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
             mapOptions: {
                 boxZoom: false,
                 doubleClickZoom: 'center',
@@ -44,6 +44,19 @@ export default {
     },
 
     computed: {
+        locationIsSet: function () {
+            if (this.value.latitude === undefined) {
+                this.setInitialValue();
+            }
+
+            return this.value.latitude > 0
+                || this.value.longitude > 0;
+        },
+
+        locationIsNotSet: function () {
+            return ! this.locationIsSet;
+        },
+
         mapCenter: function () {
             if (this.value.latitude === undefined) {
                 this.setInitialValue();
@@ -99,7 +112,13 @@ export default {
 <template>
     <panel-item :field="field">
         <div slot="value">
+            <span
+                v-if="locationIsNotSet"
+            >
+                &#8212;
+            </span>
             <l-map
+                v-if="locationIsSet"
                 class="z-10 map-field w-full form-control form-input-bordered overflow-hidden relative"
                 ref="map"
                 :center="mapCenter"
