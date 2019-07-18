@@ -17,6 +17,15 @@ export default {
         hasLongitude: function () {
             return (this.longitude.length > 0);
         },
+
+        locationIsSet: function () {
+            return this.latitude > 0
+                && this.longitude > 0;
+        },
+
+        locationIsNotSet: function () {
+            return ! this.locationIsSet;
+        },
     },
 };
 </script>
@@ -24,7 +33,7 @@ export default {
 <template>
     <span>
         <span
-            v-if="! hasLatitude && ! hasLongitude"
+            v-if="locationIsNotSet"
         >
             &#8212;
         </span>
