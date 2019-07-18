@@ -20,7 +20,7 @@ export default {
 
         locationIsSet: function () {
             return this.latitude > 0
-                && this.longitude > 0;
+                || this.longitude > 0;
         },
 
         locationIsNotSet: function () {
