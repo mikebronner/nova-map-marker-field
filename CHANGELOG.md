@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.1.7] - 2019-07-26
+### Fixed
+- display of existing location coordinates on map when editing and not using
+  default field names.
+
 ## [0.1.6] - 2019-07-18
 ### Fixed
 - url of default map to use HTTPS.
