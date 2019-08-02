@@ -68,6 +68,36 @@ export default {
     },
 
     computed: {
+        firstLocationError: function () {
+            if (this.hasLocationError) {
+                return (this.errors.first(this.latitudeFieldName)
+                    || this.errors.first(this.longitudeFieldName));
+            }
+        },
+
+        hasLocationError: function () {
+            return (this.errors.has(this.latitudeFieldName)
+                || this.errors.has(this.longitudeFieldName));
+        },
+
+        latitudeFieldName: function () {
+            return this.field.latitude || "latitude";
+        },
+
+        longitudeFieldName: function () {
+            return this.field.longitude || "longitude";
+        },
+
+        mapErrorClasses() {
+            return this.hasLocationError
+                ? this.errorClass
+                : '';
+        },
+
+        showErrors: function () {
+            console.log(this.errors);
+        },
+
         mapCenter: function () {
             if (this.value.latitude === undefined) {
                 this.setInitialValue();
@@ -122,30 +152,37 @@ export default {
 
 <template>
     <default-field
-        :field="field"
         :errors="errors"
+        :field="field"
         :full-width-content="true"
     >
         <template slot="field">
-            <l-map
-                class="z-10 map-field w-full form-control form-input-bordered overflow-hidden relative"
-                ref="map"
-                :center="mapCenter"
-                :options="mapOptions"
-                :zoom="zoom"
-                @move="mapMoved"
+            <div class="map-field z-10 p-0 w-full form-control form-input-bordered overflow-hidden relative"
+                :class="mapErrorClasses"
             >
-                <l-tile-layer
-                    :url="tileUrl"
-                ></l-tile-layer>
-                <l-marker
-                    :options="markerOptions"
-                    :lat-lng="mapCenter"
-                ></l-marker>
-                <v-geosearch
-                    :options="geosearchOptions"
-                ></v-geosearch>
-            </l-map>
+                <l-map
+                    :id="field.name"
+                    ref="map"
+                    :center="mapCenter"
+                    :options="mapOptions"
+                    :zoom="zoom"
+                    @move="mapMoved"
+                >
+                    <l-tile-layer
+                        :url="tileUrl"
+                    ></l-tile-layer>
+                    <l-marker
+                        :options="markerOptions"
+                        :lat-lng="mapCenter"
+                    ></l-marker>
+                    <v-geosearch
+                        :options="geosearchOptions"
+                    ></v-geosearch>
+                </l-map>
+            </div>
+            <p v-if="hasLocationError" class="my-2 text-danger">
+                {{ firstLocationError }}
+            </p>
         </template>
     </default-field>
 </template>

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.1.8] - 2019-08-02
+### Fixed
+- display or validation failure border and message.
+
 ## [0.1.7] - 2019-07-26
 ### Fixed
 - display of existing location coordinates on map when editing and not using
