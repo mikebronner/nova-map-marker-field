@@ -68,6 +68,18 @@ export default {
     },
 
     computed: {
+        defaultLatitude: function () {
+            return this.field.defaultLatitude || 0;
+        },
+
+        defaultLongitude: function () {
+            return this.field.defaultLongitude || 0;
+        },
+
+        defaultZoom: function () {
+            return this.field.defaultZoom || 12;
+        },
+
         firstLocationError: function () {
             if (this.hasLocationError) {
                 return (this.errors.first(this.latitudeFieldName)
@@ -104,22 +116,10 @@ export default {
             }
 
             return [
-                this.value.latitude,
-                this.value.longitude,
+                this.value.latitude || this.defaultLatitude,
+                this.value.longitude || this.defaultLongitude,
             ];
         },
-
-        zoom: function () {
-            if (this.value.latitude === undefined) {
-                this.setInitialValue();
-            }
-
-            if (! this.value.latitude) {
-                return 4;
-            }
-
-            return 18;
-        }
     },
 
     methods: {
@@ -165,7 +165,7 @@ export default {
                     ref="map"
                     :center="mapCenter"
                     :options="mapOptions"
-                    :zoom="zoom"
+                    :zoom="defaultZoom"
                     @move="mapMoved"
                 >
                     <l-tile-layer

@@ -44,6 +44,10 @@ export default {
     },
 
     computed: {
+        defaultZoom: function () {
+            return this.field.defaultZoom || 12;
+        },
+
         locationIsSet: function () {
             if (this.value.latitude === undefined) {
                 this.setInitialValue();
@@ -67,18 +71,6 @@ export default {
                 this.value.longitude,
             ];
         },
-
-        zoom: function () {
-            if (this.value.latitude === undefined) {
-                this.setInitialValue();
-            }
-
-            if (! this.value.latitude) {
-                return 4;
-            }
-
-            return 16;
-        }
     },
 
     methods: {
@@ -123,7 +115,7 @@ export default {
                 ref="map"
                 :center="mapCenter"
                 :options="mapOptions"
-                :zoom="zoom"
+                :zoom="defaultZoom"
                 @move="mapMoved"
             >
                 <l-tile-layer

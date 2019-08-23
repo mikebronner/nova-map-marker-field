@@ -36,7 +36,21 @@ the `->latitude('lat')` and `->longitude('long')` methods:
 ```php
 MapMarker::make("Location")
     ->latitude('lat')
-    ->longitude('long'),
+    ->longitude('long')
+    ->defaultZoom(8)
+    ->defaultLatitude(41.823611)
+    ->defaultLongitude(-71.422222),
+```
+
+### Default Settings
+You can specify default settings for zoom level, and initial map center
+coordinates. If not specified, the zoom level will default to 12; the
+coordinates will default to (0, 0).
+```php
+MapMarker::make("Location")
+    ->defaultZoom(8)
+    ->defaultLatitude(41.823611)
+    ->defaultLongitude(-71.422222),
 ```
 
 ### Search Provider

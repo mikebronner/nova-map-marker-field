@@ -94,6 +94,39 @@ class MapMarker extends Field
         return $this->withMeta([__FUNCTION__ => $field]);
     }
 
+    public function defaultLatitude($field)
+    {
+        if (! is_array($this->attribute)) {
+            $this->attribute = [];
+        }
+
+        $this->attribute["default_latitude"] = $field;
+
+        return $this->withMeta([__FUNCTION__ => $field]);
+    }
+
+    public function defaultLongitude($field)
+    {
+        if (! is_array($this->attribute)) {
+            $this->attribute = [];
+        }
+
+        $this->attribute["default_longitude"] = $field;
+
+        return $this->withMeta([__FUNCTION__ => $field]);
+    }
+
+    public function defaultZoom($field)
+    {
+        if (! is_array($this->attribute)) {
+            $this->attribute = [];
+        }
+
+        $this->attribute["default_zoom"] = $field;
+
+        return $this->withMeta([__FUNCTION__ => $field]);
+    }
+
     // public function markerIcon(string $url)
     // {
     //     return $this->withMeta([__FUNCTION__ => $url]);
