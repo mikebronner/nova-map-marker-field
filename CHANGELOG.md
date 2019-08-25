@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [0.1.9] - 2019-08-02
+## [0.1.10] - 2019-08-25
+### Fixed
+- updating of existing coordinates.
+- validation when field names were not default `latitude` and `longitude`.
+
+## [0.1.9] - 2019-08-20
 ### Added
 - default Zoom, Lat, Long settings.
 
