@@ -19,7 +19,7 @@ class MapMarker extends Field
 
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        foreach ($requestAttribute as $field) {
+        foreach ($requestAttribute as $field => $value) {
             if ($request->exists($field)) {
                 $model->{$field} = json_decode($request[$field], true);
             }
