@@ -1,7 +1,7 @@
 <script>
 import { FormField, HandlesValidationErrors } from 'laravel-nova';
 import L from "leaflet";
-import { LMap, LTileLayer, LMarker, LIcon, LCircle } from 'vue2-leaflet';
+import { LMap, LTileLayer, LMarker, LCircle } from 'vue2-leaflet';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -15,7 +15,7 @@ export default {
         LMap,
         LMarker,
         LTileLayer,
-		LCircle,
+        LCircle,
     },
 
     mixins: [FormField, HandlesValidationErrors],
@@ -72,7 +72,7 @@ export default {
                 this.value.longitude,
             ];
         },
-	
+
 		radiusIsSet: function() {
             return this.field.circleRadius !== undefined && this.field.circleRadius >= 0;
         },
