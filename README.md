@@ -29,17 +29,14 @@ use GeneaLabs\NovaMapMarkerField\MapMarker;
 MapMarker::make("Location"),
 ```
 
-### Model Fields
+### Coordinate Field Names
 By default the field will look for `latitude` and `longitude` fields on the
 model. However, if your model uses different names, you may customize them with
 the `->latitude('lat')` and `->longitude('long')` methods:
 ```php
 MapMarker::make("Location")
     ->latitude('lat')
-    ->longitude('long')
-    ->defaultZoom(8)
-    ->defaultLatitude(41.823611)
-    ->defaultLongitude(-71.422222),
+    ->longitude('long'),
 ```
 
 ### Default Settings

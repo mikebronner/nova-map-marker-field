@@ -26,6 +26,9 @@ export default {
 
     data: function () {
         return {
+            defaultLatitude: this.field.defaultLatitude || 0,
+            defaultLongitude: this.field.defaultLongitude || 0,
+            defaultZoom: this.field.defaultZoom || 12,
             tileUrl: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             geosearchOptions: {
                 provider: new EsriProvider(),
@@ -68,18 +71,6 @@ export default {
     },
 
     computed: {
-        defaultLatitude: function () {
-            return this.field.defaultLatitude || 0;
-        },
-
-        defaultLongitude: function () {
-            return this.field.defaultLongitude || 0;
-        },
-
-        defaultZoom: function () {
-            return this.field.defaultZoom || 12;
-        },
-
         firstLocationError: function () {
             if (this.hasLocationError) {
                 return (this.errors.first(this.latitudeFieldName)

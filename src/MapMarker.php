@@ -19,20 +19,23 @@ class MapMarker extends Field
 
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        foreach ($requestAttribute as $field => $value) {
-            if ($request->exists($field)) {
-                $model->{$field} = json_decode($request[$field], true);
+        foreach ($requestAttribute as $field => $modelField) {
+            if (in_array($field, ["latitude", "longitude"])
+                && $request->exists($modelField)
+            ) {
+                $model->{$modelField} = json_decode($request[$modelField], true);
             }
         }
     }
 
     public function getRules(NovaRequest $request)
     {
+
         return [
-            "latitude" => is_callable($this->rules)
+            $this->attribute["latitude"] => is_callable($this->rules)
                 ? call_user_func($this->rules, $request)
                 : $this->rules,
-            "longitude" => is_callable($this->rules)
+            $this->attribute["longitude"] => is_callable($this->rules)
                 ? call_user_func($this->rules, $request)
                 : $this->rules,
         ];
@@ -41,10 +44,10 @@ class MapMarker extends Field
     public function getCreationRules(NovaRequest $request)
     {
         $rules = [
-            "latitude" => is_callable($this->creationRules)
+            $this->attribute["latitude"] => is_callable($this->creationRules)
                 ? call_user_func($this->creationRules, $request)
                 : $this->creationRules,
-            "longitude" => is_callable($this->creationRules)
+            $this->attribute["longitude"] => is_callable($this->creationRules)
                 ? call_user_func($this->creationRules, $request)
                 : $this->creationRules,
         ];
@@ -58,10 +61,10 @@ class MapMarker extends Field
     public function getUpdateRules(NovaRequest $request)
     {
         $rules = [
-            "latitude" => is_callable($this->updateRules)
+            $this->attribute["latitude"] => is_callable($this->updateRules)
                 ? call_user_func($this->updateRules, $request)
                 : $this->updateRules,
-            "longitude" => is_callable($this->updateRules)
+            $this->attribute["longitude"] => is_callable($this->updateRules)
                 ? call_user_func($this->updateRules, $request)
                 : $this->updateRules,
         ];
