@@ -1,113 +1,113 @@
 <script>
-import { FormField, HandlesValidationErrors } from 'laravel-nova';
-import L from "leaflet";
-import { LMap, LTileLayer, LMarker, LCircle } from 'vue2-leaflet';
+    import {FormField, HandlesValidationErrors} from 'laravel-nova';
+    import L from "leaflet";
+    import {LCircle, LMap, LMarker, LTileLayer} from 'vue2-leaflet';
 
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-    iconUrl: require('leaflet/dist/images/marker-icon.png'),
-    shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
-});
+    delete L.Icon.Default.prototype._getIconUrl;
+    L.Icon.Default.mergeOptions({
+        iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+        iconUrl: require('leaflet/dist/images/marker-icon.png'),
+        shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+    });
 
-export default {
-    components: {
-        LMap,
-        LMarker,
-        LTileLayer,
-        LCircle,
-    },
-
-    mixins: [FormField, HandlesValidationErrors],
-
-    props: ['resourceName', 'resourceId', 'field'],
-
-    data: function () {
-        return {
-            tileUrl: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
-            mapOptions: {
-                boxZoom: false,
-                doubleClickZoom: 'center',
-                dragging: false,
-                scrollWheelZoom: 'center',
-                touchZoom: 'center',
-            },
-            markerOptions: {
-                interactive: false,
-            },
-        };
-    },
-
-    created: function () {
-        if (this.field.tileProvider !== undefined) {
-            this.tileUrl = this.field.tileProvider;
-        }
-    },
-
-    computed: {
-        defaultZoom: function () {
-            return this.field.defaultZoom || 12;
+    export default {
+        components: {
+            LMap,
+            LMarker,
+            LTileLayer,
+            LCircle,
         },
 
-        locationIsSet: function () {
-            if (this.value.latitude === undefined) {
-                this.setInitialValue();
-            }
+        mixins: [FormField, HandlesValidationErrors],
 
-            return this.value.latitude > 0
-                || this.value.longitude > 0;
-        },
+        props: ['resourceName', 'resourceId', 'field'],
 
-        locationIsNotSet: function () {
-            return ! this.locationIsSet;
-        },
-
-        mapCenter: function () {
-            if (this.value.latitude === undefined) {
-                this.setInitialValue();
-            }
-
-            return [
-                this.value.latitude,
-                this.value.longitude,
-            ];
-        },
-
-		radiusIsSet: function() {
-            return this.field.circleRadius !== undefined && this.field.circleRadius >= 0;
-        },
-
-		circleRadiusValue: function() {
-	    	return this.field.circleRadius || 0;
-		}
-    },
-
-    methods: {
-        fill: function (formData) {
-			formData.append(this.field.latitude, this.value.latitude);
-            formData.append(this.field.longitude, this.value.longitude);
-        },
-
-        handleChange: function (value) {
-            this.value.latitude = value.latitude;
-            this.value.longitude = value.longitude;
-        },
-
-        mapMoved: function (event) {
-            let coordinates = event.target.getCenter();
-
-            this.value.latitude = coordinates.lat;
-            this.value.longitude = coordinates.lng;
-        },
-
-        setInitialValue: function () {
-            this.value = {
-                latitude: this.field.value[this.field.latitude || "latitude"] || 0,
-                longitude: this.field.value[this.field.longitude || "longitude"] || 0,
+        data: function () {
+            return {
+                tileUrl: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
+                mapOptions: {
+                    boxZoom: false,
+                    doubleClickZoom: 'center',
+                    dragging: false,
+                    scrollWheelZoom: 'center',
+                    touchZoom: 'center',
+                },
+                markerOptions: {
+                    interactive: false,
+                },
             };
         },
-    },
-};
+
+        created: function () {
+            if (this.field.tileProvider !== undefined) {
+                this.tileUrl = this.field.tileProvider;
+            }
+        },
+
+        computed: {
+            defaultZoom: function () {
+                return this.field.defaultZoom || 12;
+            },
+
+            locationIsSet: function () {
+                if (this.value.latitude === undefined) {
+                    this.setInitialValue();
+                }
+
+                return this.value.latitude > 0
+                    || this.value.longitude > 0;
+            },
+
+            locationIsNotSet: function () {
+                return !this.locationIsSet;
+            },
+
+            mapCenter: function () {
+                if (this.value.latitude === undefined) {
+                    this.setInitialValue();
+                }
+
+                return [
+                    this.value.latitude,
+                    this.value.longitude,
+                ];
+            },
+
+            radiusIsSet: function () {
+                return this.field.circleRadius !== undefined && this.field.circleRadius >= 0;
+            },
+
+            circleRadiusValue: function () {
+                return this.field.circleRadius || 0;
+            }
+        },
+
+        methods: {
+            fill: function (formData) {
+                formData.append(this.field.latitude, this.value.latitude);
+                formData.append(this.field.longitude, this.value.longitude);
+            },
+
+            handleChange: function (value) {
+                this.value.latitude = value.latitude;
+                this.value.longitude = value.longitude;
+            },
+
+            mapMoved: function (event) {
+                let coordinates = event.target.getCenter();
+
+                this.value.latitude = coordinates.lat;
+                this.value.longitude = coordinates.lng;
+            },
+
+            setInitialValue: function () {
+                this.value = {
+                    latitude: this.field.value[this.field.latitude || "latitude"] || 0,
+                    longitude: this.field.value[this.field.longitude || "longitude"] || 0,
+                };
+            },
+        },
+    };
 </script>
 
 <template>
@@ -134,7 +134,7 @@ export default {
                     :options="markerOptions"
                     :lat-lng="mapCenter"
                 ></l-marker>
-				<l-circle
+                <l-circle
                     v-if="radiusIsSet"
                     :lat-lng="mapCenter"
                     :radius="circleRadiusValue"
