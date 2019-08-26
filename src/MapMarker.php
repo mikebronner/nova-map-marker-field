@@ -130,6 +130,17 @@ class MapMarker extends Field
         return $this->withMeta([__FUNCTION__ => $field]);
     }
 
+    public function circleRadius($radius)
+    {
+        if (! is_array($this->attribute)) {
+            $this->attribute = [];
+        }
+
+        $this->attribute["circle_radius"] = $radius;
+
+        return $this->withMeta([__FUNCTION__ => $radius]);
+    }
+
     // public function markerIcon(string $url)
     // {
     //     return $this->withMeta([__FUNCTION__ => $url]);
