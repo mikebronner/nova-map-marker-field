@@ -45,6 +45,30 @@
         },
 
         computed: {
+            circleColor: function () {
+                return ((this.field.centerCircle || {}).color || 'gray');
+            },
+
+            circleHasRadius: function () {
+                return this.circleRadius > 0;
+            },
+
+            circleHasStroke: function () {
+                return this.circleStroke > 0;
+            },
+
+            circleOpacity: function () {
+                return ((this.field.centerCircle || {}).opacity || 0.2);
+            },
+
+            circleRadius: function () {
+                return ((this.field.centerCircle || {}).radius || 0);
+            },
+
+            circleStroke: function () {
+                return ((this.field.centerCircle || {}).border || 0);
+            },
+
             defaultZoom: function () {
                 return this.field.defaultZoom || 12;
             },
@@ -72,14 +96,6 @@
                     this.value.longitude,
                 ];
             },
-
-            radiusIsSet: function () {
-                return this.field.circleRadius !== undefined && this.field.circleRadius >= 0;
-            },
-
-            circleRadiusValue: function () {
-                return this.field.circleRadius || 0;
-            }
         },
 
         methods: {
@@ -135,9 +151,13 @@
                     :lat-lng="mapCenter"
                 ></l-marker>
                 <l-circle
-                    v-if="radiusIsSet"
+                    v-if="circleHasRadius"
                     :lat-lng="mapCenter"
-                    :radius="circleRadiusValue"
+                    :radius="circleRadius"
+                    :color="circleColor"
+                    :fillColor="circleColor"
+                    :weight="circleStroke"
+                    :fillOpacity="circleOpacity"
                 />
             </l-map>
         </div>

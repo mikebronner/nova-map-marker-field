@@ -50,6 +50,14 @@ MapMarker::make("Location")
     ->defaultLongitude(-71.422222),
 ```
 
+### Center Circle
+The optional `centerCircle()` method allows the addition of a circle to be
+rendered at the centerpoint of the map.
+```php
+MapMarker::make("Location")
+    ->centerCircle($radiusInMeters, $color, $borderWidth, $backgroundOpacity),
+```
+
 ### Search Provider
 The underlying search capabilities are provided by
 [leaflet-geosearch](https://github.com/smeijer/leaflet-geosearch). Please refer

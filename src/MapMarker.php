@@ -75,26 +75,23 @@ class MapMarker extends Field
         );
     }
 
-    public function latitude($field)
+    public function centerCircle(int $radius = 0, string $color = 'gray', int $border = 0, float $opacity = 0.2)
     {
         if (! is_array($this->attribute)) {
             $this->attribute = [];
         }
 
-        $this->attribute["latitude"] = $field;
+        $this->attribute["circle_radius"] = $radius;
+        $this->attribute["circle_color"] = $color;
+        $this->attribute["circle_border"] = $border;
+        $this->attribute["circle_opacity"] = $border;
 
-        return $this->withMeta([__FUNCTION__ => $field]);
-    }
-
-    public function longitude($field)
-    {
-        if (! is_array($this->attribute)) {
-            $this->attribute = [];
-        }
-
-        $this->attribute["longitude"] = $field;
-
-        return $this->withMeta([__FUNCTION__ => $field]);
+        return $this->withMeta([__FUNCTION__ => [
+            'radius' => $radius,
+            'color' => $color,
+            'border' => $border,
+            'opacity' => $opacity,
+        ]]);
     }
 
     public function defaultLatitude($field)
@@ -130,15 +127,26 @@ class MapMarker extends Field
         return $this->withMeta([__FUNCTION__ => $field]);
     }
 
-    public function circleRadius($radius)
+    public function latitude($field)
     {
         if (! is_array($this->attribute)) {
             $this->attribute = [];
         }
 
-        $this->attribute["circle_radius"] = $radius;
+        $this->attribute["latitude"] = $field;
 
-        return $this->withMeta([__FUNCTION__ => $radius]);
+        return $this->withMeta([__FUNCTION__ => $field]);
+    }
+
+    public function longitude($field)
+    {
+        if (! is_array($this->attribute)) {
+            $this->attribute = [];
+        }
+
+        $this->attribute["longitude"] = $field;
+
+        return $this->withMeta([__FUNCTION__ => $field]);
     }
 
     // public function markerIcon(string $url)
