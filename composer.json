@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "laravel/nova": "2.*",
+        "laravel/nova": "*",
         "symfony/thanks": "^1.1"
     },
     "autoload": {
