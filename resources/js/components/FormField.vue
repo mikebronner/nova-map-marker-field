@@ -30,7 +30,7 @@
                 defaultLatitude: this.field.defaultLatitude || 0,
                 defaultLongitude: this.field.defaultLongitude || 0,
                 defaultZoom: this.field.defaultZoom || 12,
-                tileUrl: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+                tileUrl: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
                 geosearchOptions: {
                     provider: new EsriProvider(),
                     showMarker: false,
