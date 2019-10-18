@@ -3,7 +3,7 @@
 [![Packagist](https://img.shields.io/packagist/dt/GeneaLabs/nova-map-marker-field.svg)](https://packagist.org/packages/genealabs/nova-map-marker-field)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/GeneaLabs/nova-map-marker-field/master/LICENSE)
 
-![laravel-nova-map-marker-field-header](https://user-images.githubusercontent.com/1791050/59978378-86beef00-9590-11e9-9a10-dee8f77f0037.png)
+![Map Marker Field for Laravel Nova masthead image.](https://repository-images.githubusercontent.com/193125151/642cd600-9590-11e9-99d0-d77a638bf308)
 
 ## Supporting This Package
 This is an MIT-licensed open source project with its ongoing development made possible by the support of the community. If you'd like to support this, and our other packages, please consider [becoming a backer or sponsor on Patreon](https://www.patreon.com/mikebronner).
