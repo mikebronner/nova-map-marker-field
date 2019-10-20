@@ -10,16 +10,16 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "cross-env": "^5.0.0",
-        "laravel-mix": "^4.0",
+        "cross-env": "^5.2.1",
+        "laravel-mix": "^4.1.4",
         "laravel-nova": "^1.0",
         "leaflet": "^1.5.1",
         "resolve-url-loader": "2.3.1",
-        "sass": "^1.21.0",
-        "sass-loader": "7.*",
+        "sass": "^1.23.0",
+        "sass-loader": "^7.3.1",
         "vue": "^2.5.0",
         "vue-template-compiler": "^2.6.10",
-        "vue2-leaflet": "^2.1.1"
+        "vue2-leaflet": "^2.2.1"
     },
     "dependencies": {
         "leaflet-geosearch": "^2.7.0",

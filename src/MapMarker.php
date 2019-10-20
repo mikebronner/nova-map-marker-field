@@ -192,4 +192,25 @@ class MapMarker extends Field
 
         parent::resolve($resource, $attribute);
     }
+
+    public function isRequired(NovaRequest $request)
+    {
+        return with($this->requiredCallback, function ($callback) use ($request) {
+            if ($callback === true || (is_callable($callback) && call_user_func($callback, $request))) {
+                return true;
+            }
+
+            if (is_null($callback) && $request->isCreateOrAttachRequest()) {
+                return in_array('required', $this->getCreationRules($request)["latitude"])
+                    || in_array('required', $this->getCreationRules($request)["longitude"]);
+            }
+
+            if (is_null($callback) && $request->isUpdateOrUpdateAttachedRequest()) {
+                return in_array('required', $this->getUpdateRules($request)["latitude"])
+                    || in_array('required', $this->getUpdateRules($request)["longitude"]);
+            }
+
+            return false;
+        });
+    }
 }
