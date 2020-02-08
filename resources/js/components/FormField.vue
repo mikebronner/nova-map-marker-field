@@ -126,6 +126,10 @@
                 return this.field.searchLabel || "Enter address";
             },
 
+            listenToEventName: function () {
+                return this.field.listenToEventName || "newcenter"
+            },
+
             mapErrorClasses() {
                 return this.hasLocationError
                     ? this.errorClass
