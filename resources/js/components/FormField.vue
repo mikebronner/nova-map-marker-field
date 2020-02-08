@@ -35,6 +35,7 @@
                     provider: new EsriProvider(),
                     showMarker: false,
                     style: "bar",
+                    searchLabel: this.searchLabel
                 },
                 mapOptions: {
                     doubleClickZoom: 'center',
@@ -73,7 +74,7 @@
             if (this.field.tileProvider !== undefined) {
                 this.tileUrl = this.field.tileProvider;
             }
-            Nova.$on("newcenter", this.mapNewCenter)
+            Nova.$on(this.listenToEventName, this.mapNewCenter)
         },
 
         computed: {
@@ -119,6 +120,14 @@
 
             longitudeFieldName: function () {
                 return this.field.longitude || "longitude";
+            },
+
+            searchLabel: function() {
+                return this.field.searchLabel || "Enter address";
+            },
+
+            listenToEventName: function () {
+                return this.field.listenToEventName || "newcenter"
             },
 
             mapErrorClasses() {
