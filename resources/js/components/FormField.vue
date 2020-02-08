@@ -46,7 +46,11 @@
                 },
             };
         },
-
+        mounted: function () {
+            this.$nextTick(() => {
+                this.map = this.$refs.map.mapObject
+            })
+        },
         created: function () {
             switch (this.field.searchProvider) {
                 case "bing":
@@ -69,6 +73,7 @@
             if (this.field.tileProvider !== undefined) {
                 this.tileUrl = this.field.tileProvider;
             }
+            Nova.$on("newcenter", this.mapNewCenter)
         },
 
         computed: {
@@ -161,6 +166,12 @@
                     latitude: this.field.value[this.field.latitude || "latitude"] || 0,
                     longitude: this.field.value[this.field.longitude || "longitude"] || 0,
                 };
+            },
+            mapNewCenter: function (event) {
+                var center = [event.lat,event.long]
+                this.value.latitude = event.lat;
+                this.value.longitude = event.long;
+                this.map.panTo(center,{animate:true})
             },
         },
     };
