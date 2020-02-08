@@ -213,4 +213,13 @@ class MapMarker extends Field
             return false;
         });
     }
+
+	/**
+	 * @param String $label
+	 *
+	 * @return mixed
+	 */
+    public function searchLabel(String $label){
+    	return $this->withMeta([__FUNCTION__ => $label]);
+    }
 }

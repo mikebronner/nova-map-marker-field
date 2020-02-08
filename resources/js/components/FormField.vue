@@ -35,6 +35,7 @@
                     provider: new EsriProvider(),
                     showMarker: false,
                     style: "bar",
+                    searchLabel: this.searchLabel
                 },
                 mapOptions: {
                     doubleClickZoom: 'center',
@@ -119,6 +120,10 @@
 
             longitudeFieldName: function () {
                 return this.field.longitude || "longitude";
+            },
+
+            searchLabel: function() {
+                return this.field.searchLabel || "Enter address";
             },
 
             mapErrorClasses() {
