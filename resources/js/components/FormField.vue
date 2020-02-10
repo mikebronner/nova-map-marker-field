@@ -50,6 +50,12 @@
             })
         },
         created: function () {
+            delete L.Icon.Default.prototype._getIconUrl;
+            L.Icon.Default.mergeOptions({
+                iconRetinaUrl: this.iconRetinaUrl,
+                iconUrl: this.iconUrl,
+                shadowUrl: this.shadowUrl
+            });
             switch (this.field.searchProvider) {
                 case "bing":
                     this.geosearchOptions.provider = new BingProvider();
