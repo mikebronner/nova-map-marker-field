@@ -52,9 +52,9 @@
         created: function () {
             delete L.Icon.Default.prototype._getIconUrl;
             L.Icon.Default.mergeOptions({
-                iconRetinaUrl: this.iconRetinaUrl,
-                iconUrl: this.iconUrl,
-                shadowUrl: this.shadowUrl
+                iconRetinaUrl: this.iconRetina,
+                iconUrl: this.icon,
+                shadowUrl: this.shadow
             });
             switch (this.field.searchProvider) {
                 case "bing":
