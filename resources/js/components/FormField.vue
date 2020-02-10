@@ -5,12 +5,6 @@
     import { BingProvider, EsriProvider, GoogleProvider, LocationIQProvider, OpenCageProvider, OpenStreetMapProvider } from 'leaflet-geosearch';
     import VGeosearch from 'vue2-leaflet-geosearch';
 
-    delete L.Icon.Default.prototype._getIconUrl;
-    L.Icon.Default.mergeOptions({
-        iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-        iconUrl: require('leaflet/dist/images/marker-icon.png'),
-        shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
-    });
 
     export default {
         components: {
@@ -27,6 +21,9 @@
 
         data: function () {
             return {
+                iconRetina: this.field.iconRetinaUrl || require('leaflet/dist/images/marker-icon-2x.png'),
+                icon: this.fieldIconUrl || require('leaflet/dist/images/marker-icon.png'),
+                shadow: this.field.shadowUrl || require('leaflet/dist/images/marker-shadow.png'),
                 defaultLatitude: this.field.defaultLatitude || 0,
                 defaultLongitude: this.field.defaultLongitude || 0,
                 defaultZoom: this.field.defaultZoom || 12,
@@ -53,6 +50,12 @@
             })
         },
         created: function () {
+            delete L.Icon.Default.prototype._getIconUrl;
+            L.Icon.Default.mergeOptions({
+                iconRetinaUrl: this.iconRetina,
+                iconUrl: this.icon,
+                shadowUrl: this.shadow,
+            });
             switch (this.field.searchProvider) {
                 case "bing":
                     this.geosearchOptions.provider = new BingProvider();
