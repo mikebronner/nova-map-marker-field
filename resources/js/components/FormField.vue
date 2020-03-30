@@ -36,6 +36,7 @@
                     showMarker: false,
                     style: "bar",
                 },
+                mapValue: [],
                 mapOptions: {
                     doubleClickZoom: 'center',
                     scrollWheelZoom: 'center',
@@ -140,8 +141,9 @@
 
         methods: {
             fill: function (formData) {
-                formData.append((this.field.latitude || "latitude"), this.value.latitude);
-                formData.append((this.field.longitude || "longitude"), this.value.longitude);
+                formData.append(this.field.attribute, [this.value.latitude, this.value.longitude])
+                formData.append("latitude", this.value.latitude);
+                formData.append("longitude", this.value.longitude);
             },
 
             handleChange: function (value) {
@@ -158,8 +160,8 @@
 
             setInitialValue: function () {
                 this.value = {
-                    latitude: this.field.value[this.field.latitude || "latitude"] || 0,
-                    longitude: this.field.value[this.field.longitude || "longitude"] || 0,
+                    latitude: '24.774265',
+                    longitude: '46.738586',
                 };
             },
         },
@@ -168,40 +170,43 @@
 
 <template>
     <default-field
-        :errors="errors"
-        :field="field"
-        :full-width-content="true"
+            :errors="errors"
+            :field="field"
+            :full-width-content="true"
     >
         <template slot="field">
             <div class="map-field z-10 p-0 w-full form-control form-input-bordered overflow-hidden relative"
-                :class="mapErrorClasses"
+                 :class="mapErrorClasses"
             >
                 <l-map
-                    :id="field.name"
-                    ref="map"
-                    :center="mapCenter"
-                    :options="mapOptions"
-                    :zoom="defaultZoom"
-                    @move="mapMoved"
+                        :id="field.name"
+                        ref="map"
+                        :center="mapCenter"
+                        v-model="halahNN1"
+                        :options="mapOptions"
+                        :zoom="defaultZoom"
+                        @move="mapMoved"
                 >
                     <l-tile-layer
-                        :url="tileUrl"
+                            :url="tileUrl"
                     ></l-tile-layer>
                     <l-marker
-                        :options="markerOptions"
-                        :lat-lng="mapCenter"
+                            v-model="halahNN2"
+                            :options="markerOptions"
+                            :lat-lng="mapCenter"
                     ></l-marker>
                     <v-geosearch
-                        :options="geosearchOptions"
+                            :options="geosearchOptions"
                     ></v-geosearch>
                     <l-circle
-                        v-if="circleHasRadius"
-                        :lat-lng="mapCenter"
-                        :radius="circleRadius"
-                        :color="circleColor"
-                        :fillColor="circleColor"
-                        :weight="circleStroke"
-                        :fillOpacity="circleOpacity"
+                            v-model="halahNN3"
+                            v-if="circleHasRadius"
+                            :lat-lng="mapCenter"
+                            :radius="circleRadius"
+                            :color="circleColor"
+                            :fillColor="circleColor"
+                            :weight="circleStroke"
+                            :fillOpacity="circleOpacity"
                     />
                 </l-map>
             </div>
