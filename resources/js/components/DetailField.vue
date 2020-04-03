@@ -18,7 +18,7 @@
         data: function () {
             return {
                 iconRetina: this.field.iconRetinaUrl || require('leaflet/dist/images/marker-icon-2x.png'),
-                icon: this.fieldIconUrl || require('leaflet/dist/images/marker-icon.png'),
+                icon: this.field.iconUrl || require('leaflet/dist/images/marker-icon.png'),
                 shadow: this.field.shadowUrl || require('leaflet/dist/images/marker-shadow.png'),
                 tileUrl: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
                 mapOptions: {
