@@ -69,6 +69,12 @@ MapMarker::make("Location")
     ->searchProviderKey('xxxxxxxxxxxxxxxxxxxxxxxxxxx'),
 ```
 
+You can specify a custom search label in the geosearch box:
+```php
+MapMarker::make('Location')
+    ->searchLabel('Enter Address');
+```
+
 ### Tile Layer
 You are free to use any tile provider that is compatible with
 [Leaflet](https://leafletjs.com/reference-1.5.0.html#tilelayer). Please refer to
@@ -78,6 +84,22 @@ OpenStreetMap:
 MapMarker::make("Location")
     ->tileProvider('http://{s}.somedomain.com/{foo}/{z}/{x}/{y}.png'),
 ```
+
+### Recenter On Nova Custom Component Events
+- From your custom component you can trigger the recentering of the map as
+  follows:
+  ```js
+  Nova.$emit("recenterMapOn", {latitude, longitude});
+  ```
+- You can define a custom event name that the MapMarker field will respond to:
+  ```php
+  MapMarker::make('Location')
+      ->listenToEventName('customCenterEventTriggerName');
+  ```
+  You can then trigger the event from your custom component like so:
+  ```js
+  Nova.$emit("customCenterEventTriggerName", {latitude, longitude});
+  ```
 
 ## Usage
 When creating or editing you can search for an address or city to get the map to the general area you wish to get coordinates for. Then you can precisely position the marker by dragging the map -- the marker will always stay positioned in the middle, while you move the map under it.

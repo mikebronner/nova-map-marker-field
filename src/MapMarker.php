@@ -2,7 +2,6 @@
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use mysql_xdevapi\Schema;
 
 class MapMarker extends Field
 {
@@ -31,7 +30,6 @@ class MapMarker extends Field
 
     public function getRules(NovaRequest $request)
     {
-
         return [
             $this->attribute["latitude"] => is_callable($this->rules)
                 ? call_user_func($this->rules, $request)
@@ -215,48 +213,23 @@ class MapMarker extends Field
         });
     }
 
-	/**
-	 * @param String $label
-	 *
-	 * @return mixed
-	 */
-    public function searchLabel(String $label){
+    public function searchLabel(string $label) {
     	return $this->withMeta([__FUNCTION__ => $label]);
     }
 
-	/**
-	 * @param String $eventName
-	 *
-	 * @return mixed
-	 */
-    public function listenToEventName(String $eventName){
+    public function listenToEventName(string $eventName) {
     	return $this->withMeta([__FUNCTION__ => $eventName]);
     }
 
-	/**
-	 * @param String $Url
-	 *
-	 * @return mixed
-	 */
-    public function iconRetinaUrl(String $Url){
-    	return $this->withMeta([__FUNCTION__ => $Url]);
+    public function iconRetinaUrl(string $url) {
+    	return $this->withMeta([__FUNCTION__ => $url]);
     }
 
-	/**
-	 * @param String $Url
-	 *
-	 * @return mixed
-	 */
-    public function iconUrl(String $Url){
-    	return $this->withMeta([__FUNCTION__ => $Url]);
+    public function iconUrl(string $url) {
+    	return $this->withMeta([__FUNCTION__ => $url]);
     }
 
-	/**
-	 * @param String $Url
-	 *
-	 * @return mixed
-	 */
-    public function shadowUrl(String $Url){
-    	return $this->withMeta([__FUNCTION__ => $Url]);
+    public function shadowUrl(string $url) {
+    	return $this->withMeta([__FUNCTION__ => $url]);
     }
 }

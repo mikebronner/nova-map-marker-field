@@ -5,7 +5,6 @@
     import { BingProvider, EsriProvider, GoogleProvider, LocationIQProvider, OpenCageProvider, OpenStreetMapProvider } from 'leaflet-geosearch';
     import VGeosearch from 'vue2-leaflet-geosearch';
 
-
     export default {
         components: {
             LCircle,
@@ -21,18 +20,25 @@
 
         data: function () {
             return {
-                iconRetina: this.field.iconRetinaUrl || require('leaflet/dist/images/marker-icon-2x.png'),
-                icon: this.field.iconUrl || require('leaflet/dist/images/marker-icon.png'),
-                shadow: this.field.shadowUrl || require('leaflet/dist/images/marker-shadow.png'),
-                defaultLatitude: this.field.defaultLatitude || 0,
-                defaultLongitude: this.field.defaultLongitude || 0,
-                defaultZoom: this.field.defaultZoom || 12,
+                iconRetina: this.field.iconRetinaUrl
+                    || require('leaflet/dist/images/marker-icon-2x.png'),
+                icon: this.field.iconUrl
+                    || require('leaflet/dist/images/marker-icon.png'),
+                shadow: this.field.shadowUrl
+                    || require('leaflet/dist/images/marker-shadow.png'),
+                defaultLatitude: this.field.defaultLatitude
+                    || 0,
+                defaultLongitude: this.field.defaultLongitude
+                    || 0,
+                defaultZoom: this.field.defaultZoom
+                    || 12,
                 tileUrl: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
                 geosearchOptions: {
                     provider: new EsriProvider(),
                     showMarker: false,
                     style: "bar",
-                    searchLabel: this.field.searchLabel || "Enter address"
+                    searchLabel: this.field.searchLabel
+                        || "Enter address",
                 },
                 mapOptions: {
                     doubleClickZoom: 'center',
@@ -44,18 +50,22 @@
                 },
             };
         },
+        
         mounted: function () {
             this.$nextTick(() => {
-                this.map = this.$refs.map.mapObject
-            })
+                this.map = this.$refs.map.mapObject;
+            });
         },
+
         created: function () {
             delete L.Icon.Default.prototype._getIconUrl;
+
             L.Icon.Default.mergeOptions({
                 iconRetinaUrl: this.iconRetina,
                 iconUrl: this.icon,
-                shadowUrl: this.shadow
+                shadowUrl: this.shadow,
             });
+            
             switch (this.field.searchProvider) {
                 case "bing":
                     this.geosearchOptions.provider = new BingProvider();
@@ -77,6 +87,7 @@
             if (this.field.tileProvider !== undefined) {
                 this.tileUrl = this.field.tileProvider;
             }
+
             Nova.$on(this.listenToEventName, this.mapNewCenter)
         },
 
@@ -118,15 +129,18 @@
             },
 
             latitudeFieldName: function () {
-                return this.field.latitude || "latitude";
+                return this.field.latitude
+                    || "latitude";
             },
 
             longitudeFieldName: function () {
-                return this.field.longitude || "longitude";
+                return this.field.longitude
+                    || "longitude";
             },
 
             listenToEventName: function () {
-                return this.field.listenToEventName || "newcenter"
+                return this.field.listenToEventName
+                    || "recenterMapOn"
             },
 
             mapErrorClasses() {
@@ -145,8 +159,10 @@
                 }
 
                 return [
-                    this.value.latitude || this.defaultLatitude,
-                    this.value.longitude || this.defaultLongitude,
+                    this.value.latitude
+                        || this.defaultLatitude,
+                    this.value.longitude
+                        || this.defaultLongitude,
                 ];
             },
         },
@@ -171,15 +187,19 @@
 
             setInitialValue: function () {
                 this.value = {
-                    latitude: this.field.value[this.field.latitude || "latitude"] || 0,
-                    longitude: this.field.value[this.field.longitude || "longitude"] || 0,
+                    latitude: this.field.value[this.field.latitude || "latitude"]
+                        || 0,
+                    longitude: this.field.value[this.field.longitude || "longitude"]
+                        || 0,
                 };
             },
+
             mapNewCenter: function (event) {
-                var center = [event.lat,event.long]
+                var center = [event.lat, event.long];
+
                 this.value.latitude = event.lat;
                 this.value.longitude = event.long;
-                this.map.panTo(center,{animate:true})
+                this.map.panTo(center, {animate:true});
             },
         },
     };
