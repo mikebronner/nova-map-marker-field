@@ -2,6 +2,7 @@
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use mysql_xdevapi\Schema;
 
 class MapMarker extends Field
 {
@@ -212,5 +213,50 @@ class MapMarker extends Field
 
             return false;
         });
+    }
+
+	/**
+	 * @param String $label
+	 *
+	 * @return mixed
+	 */
+    public function searchLabel(String $label){
+    	return $this->withMeta([__FUNCTION__ => $label]);
+    }
+
+	/**
+	 * @param String $eventName
+	 *
+	 * @return mixed
+	 */
+    public function listenToEventName(String $eventName){
+    	return $this->withMeta([__FUNCTION__ => $eventName]);
+    }
+
+	/**
+	 * @param String $Url
+	 *
+	 * @return mixed
+	 */
+    public function iconRetinaUrl(String $Url){
+    	return $this->withMeta([__FUNCTION__ => $Url]);
+    }
+
+	/**
+	 * @param String $Url
+	 *
+	 * @return mixed
+	 */
+    public function iconUrl(String $Url){
+    	return $this->withMeta([__FUNCTION__ => $Url]);
+    }
+
+	/**
+	 * @param String $Url
+	 *
+	 * @return mixed
+	 */
+    public function shadowUrl(String $Url){
+    	return $this->withMeta([__FUNCTION__ => $Url]);
     }
 }

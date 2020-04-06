@@ -3,13 +3,6 @@
     import L from "leaflet";
     import {LCircle, LMap, LMarker, LTileLayer} from 'vue2-leaflet';
 
-    delete L.Icon.Default.prototype._getIconUrl;
-    L.Icon.Default.mergeOptions({
-        iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-        iconUrl: require('leaflet/dist/images/marker-icon.png'),
-        shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
-    });
-
     export default {
         components: {
             LMap,
@@ -24,6 +17,9 @@
 
         data: function () {
             return {
+                iconRetina: this.field.iconRetinaUrl || require('leaflet/dist/images/marker-icon-2x.png'),
+                icon: this.field.iconUrl || require('leaflet/dist/images/marker-icon.png'),
+                shadow: this.field.shadowUrl || require('leaflet/dist/images/marker-shadow.png'),
                 tileUrl: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
                 mapOptions: {
                     boxZoom: false,
@@ -39,6 +35,12 @@
         },
 
         created: function () {
+            delete L.Icon.Default.prototype._getIconUrl;
+            L.Icon.Default.mergeOptions({
+                iconRetinaUrl: this.iconRetina,
+                iconUrl: this.icon,
+                shadowUrl: this.shadow,
+            });
             if (this.field.tileProvider !== undefined) {
                 this.tileUrl = this.field.tileProvider;
             }
