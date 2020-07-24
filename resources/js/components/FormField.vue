@@ -65,22 +65,28 @@
                 iconUrl: this.icon,
                 shadowUrl: this.shadow,
             });
+
+            const providerOptions = {};
+
+            if (typeof this.field.searchProviderKey !== 'undefined') {
+                providerOptions.params.key = this.field.searchProviderKey;
+            }
             
             switch (this.field.searchProvider) {
                 case "bing":
-                    this.geosearchOptions.provider = new BingProvider();
+                    this.geosearchOptions.provider = new BingProvider(providerOptions);
                     break;
                 case "google":
-                    this.geosearchOptions.provider = new GoogleProvider();
+                    this.geosearchOptions.provider = new GoogleProvider(providerOptions);
                     break;
                 case "locationiq":
-                    this.geosearchOptions.provider = new LocationIQProvider();
+                    this.geosearchOptions.provider = new LocationIQProvider(providerOptions);
                     break;
                 case "opencage":
-                    this.geosearchOptions.provider = new OpenCageProvider();
+                    this.geosearchOptions.provider = new OpenCageProvider(providerOptions);
                     break;
                 case "openstreetmap":
-                    this.geosearchOptions.provider = new OpenStreetMapProvider();
+                    this.geosearchOptions.provider = new OpenStreetMapProvider(providerOptions);
                     break;
             }
 
