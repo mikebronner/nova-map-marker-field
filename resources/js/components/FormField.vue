@@ -21,11 +21,11 @@
         data: function () {
             return {
                 iconRetina: this.field.iconRetinaUrl
-                    || require('leaflet/dist/images/marker-icon-2x.png'),
+                    || '/vendor/leaflet/dist/images/marker-icon-2x.png',
                 icon: this.field.iconUrl
-                    || require('leaflet/dist/images/marker-icon.png'),
+                    || '/vendor/leaflet/dist/images/marker-icon.png',
                 shadow: this.field.shadowUrl
-                    || require('leaflet/dist/images/marker-shadow.png'),
+                    || '/vendor/leaflet/dist/images/marker-shadow.png',
                 defaultLatitude: this.field.defaultLatitude
                     || 0,
                 defaultLongitude: this.field.defaultLongitude
@@ -50,7 +50,7 @@
                 },
             };
         },
-        
+
         mounted: function () {
             this.$nextTick(() => {
                 this.map = this.$refs.map.mapObject;
@@ -71,7 +71,7 @@
             if (typeof this.field.searchProviderKey !== 'undefined') {
                 providerOptions.params.key = this.field.searchProviderKey;
             }
-            
+
             switch (this.field.searchProvider) {
                 case "bing":
                     this.geosearchOptions.provider = new BingProvider(providerOptions);
