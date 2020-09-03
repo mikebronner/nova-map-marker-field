@@ -13,7 +13,8 @@
         }
     ],
     "require": {
-        "laravel/nova": "*",
+        "illuminate/support": "^7.0",
+        "laravel/nova": "<3.8.4",
         "symfony/thanks": "^1.1"
     },
     "autoload": {
