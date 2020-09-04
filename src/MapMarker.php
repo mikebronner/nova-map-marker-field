@@ -7,34 +7,24 @@ class MapMarker extends Field
 {
     public $component = 'nova-map-marker-field';
 
-    public function __construct($name, $attribute = null, callable $resolveCallback = null)
-    {
-        $attribute = [
-            "latitude" => "latitude",
-            "longitude" => "longitude",
-        ];
-
-        parent::__construct($name, $attribute, $resolveCallback);
-    }
-
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        foreach ($requestAttribute as $field => $modelField) {
-            if (in_array($field, ["latitude", "longitude"])
-                && $request->exists($modelField)
-            ) {
-                $model->{$modelField} = json_decode($request[$modelField], true);
-            }
+        if ($request->exists($requestAttribute)) {
+            $result = json_decode($request->{$requestAttribute}, false);
+
+            $model->{$result->latitude_field} = $this->isNullValue($result->latitude)
+                ? null
+                : $result->latitude;
+            $model->{$result->longitude_field} = $this->isNullValue($result->longitude)
+                ? null
+                : $result->longitude;
         }
     }
 
     public function getRules(NovaRequest $request)
     {
         return [
-            $this->attribute["latitude"] => is_callable($this->rules)
-                ? call_user_func($this->rules, $request)
-                : $this->rules,
-            $this->attribute["longitude"] => is_callable($this->rules)
+            $this->attribute => is_callable($this->rules)
                 ? call_user_func($this->rules, $request)
                 : $this->rules,
         ];
@@ -43,10 +33,7 @@ class MapMarker extends Field
     public function getCreationRules(NovaRequest $request)
     {
         $rules = [
-            $this->attribute["latitude"] => is_callable($this->creationRules)
-                ? call_user_func($this->creationRules, $request)
-                : $this->creationRules,
-            $this->attribute["longitude"] => is_callable($this->creationRules)
+            $this->attribute => is_callable($this->creationRules)
                 ? call_user_func($this->creationRules, $request)
                 : $this->creationRules,
         ];
@@ -60,10 +47,7 @@ class MapMarker extends Field
     public function getUpdateRules(NovaRequest $request)
     {
         $rules = [
-            $this->attribute["latitude"] => is_callable($this->updateRules)
-                ? call_user_func($this->updateRules, $request)
-                : $this->updateRules,
-            $this->attribute["longitude"] => is_callable($this->updateRules)
+            $this->attribute => is_callable($this->updateRules)
                 ? call_user_func($this->updateRules, $request)
                 : $this->updateRules,
         ];
@@ -76,15 +60,6 @@ class MapMarker extends Field
 
     public function centerCircle(int $radius = 0, string $color = 'gray', int $border = 0, float $opacity = 0.2)
     {
-        if (! is_array($this->attribute)) {
-            $this->attribute = [];
-        }
-
-        $this->attribute["circle_radius"] = $radius;
-        $this->attribute["circle_color"] = $color;
-        $this->attribute["circle_border"] = $border;
-        $this->attribute["circle_opacity"] = $border;
-
         return $this->withMeta([__FUNCTION__ => [
             'radius' => $radius,
             'color' => $color,
@@ -95,56 +70,26 @@ class MapMarker extends Field
 
     public function defaultLatitude($field)
     {
-        if (! is_array($this->attribute)) {
-            $this->attribute = [];
-        }
-
-        $this->attribute["default_latitude"] = $field;
-
         return $this->withMeta([__FUNCTION__ => $field]);
     }
 
     public function defaultLongitude($field)
     {
-        if (! is_array($this->attribute)) {
-            $this->attribute = [];
-        }
-
-        $this->attribute["default_longitude"] = $field;
-
         return $this->withMeta([__FUNCTION__ => $field]);
     }
 
     public function defaultZoom($field)
     {
-        if (! is_array($this->attribute)) {
-            $this->attribute = [];
-        }
-
-        $this->attribute["default_zoom"] = $field;
-
         return $this->withMeta([__FUNCTION__ => $field]);
     }
 
     public function latitude($field)
     {
-        if (! is_array($this->attribute)) {
-            $this->attribute = [];
-        }
-
-        $this->attribute["latitude"] = $field;
-
         return $this->withMeta([__FUNCTION__ => $field]);
     }
 
     public function longitude($field)
     {
-        if (! is_array($this->attribute)) {
-            $this->attribute = [];
-        }
-
-        $this->attribute["longitude"] = $field;
-
         return $this->withMeta([__FUNCTION__ => $field]);
     }
 
@@ -176,20 +121,14 @@ class MapMarker extends Field
     public function resolve($resource, $attribute = null)
     {
         $attribute = $attribute ?? $this->attribute;
-
-        if (is_array($attribute)) {
-            if (! is_array($this->value)) {
-                $this->value = [];
-            }
-
-            foreach ($attribute as $field) {
-                $this->value[$field] = $this->resolveAttribute($resource, $field);
-            }
-
-            return;
-        }
-
-        parent::resolve($resource, $attribute);
+        $latitudeField = $this->meta["latitude"] ?? "latitude";
+        $longitudeField = $this->meta["longitude"] ?? "longitude";
+        $this->value = json_encode([
+            "latitude_field" => $latitudeField,
+            "longitude_field" => $longitudeField,
+            "latitude" => (float) $resource->{$latitudeField},
+            "longitude" => (float) $resource->{$longitudeField},
+        ]);
     }
 
     public function isRequired(NovaRequest $request)
@@ -200,36 +139,39 @@ class MapMarker extends Field
             }
 
             if (is_null($callback) && $request->isCreateOrAttachRequest()) {
-                return in_array('required', $this->getCreationRules($request)["latitude"])
-                    || in_array('required', $this->getCreationRules($request)["longitude"]);
+                return in_array('required', $this->getCreationRules($request));
             }
 
             if (is_null($callback) && $request->isUpdateOrUpdateAttachedRequest()) {
-                return in_array('required', $this->getUpdateRules($request)["latitude"])
-                    || in_array('required', $this->getUpdateRules($request)["longitude"]);
+                return in_array('required', $this->getUpdateRules($request));
             }
 
             return false;
         });
     }
 
-    public function searchLabel(string $label) {
-    	return $this->withMeta([__FUNCTION__ => $label]);
+    public function searchLabel(string $label)
+    {
+        return $this->withMeta([__FUNCTION__ => $label]);
     }
 
-    public function listenToEventName(string $eventName) {
-    	return $this->withMeta([__FUNCTION__ => $eventName]);
+    public function listenToEventName(string $eventName)
+    {
+        return $this->withMeta([__FUNCTION__ => $eventName]);
     }
 
-    public function iconRetinaUrl(string $url) {
-    	return $this->withMeta([__FUNCTION__ => $url]);
+    public function iconRetinaUrl(string $url)
+    {
+        return $this->withMeta([__FUNCTION__ => $url]);
     }
 
-    public function iconUrl(string $url) {
-    	return $this->withMeta([__FUNCTION__ => $url]);
+    public function iconUrl(string $url)
+    {
+        return $this->withMeta([__FUNCTION__ => $url]);
     }
 
-    public function shadowUrl(string $url) {
-    	return $this->withMeta([__FUNCTION__ => $url]);
+    public function shadowUrl(string $url)
+    {
+        return $this->withMeta([__FUNCTION__ => $url]);
     }
 }

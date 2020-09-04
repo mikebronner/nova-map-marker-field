@@ -18,11 +18,11 @@
         data: function () {
             return {
                 iconRetina: this.field.iconRetinaUrl
-                    || require('leaflet/dist/images/marker-icon-2x.png'),
+                    || '/vendor/leaflet/dist/images/marker-icon-2x.png',
                 icon: this.field.iconUrl
-                    || require('leaflet/dist/images/marker-icon.png'),
+                    || '/vendor/leaflet/dist/images/marker-icon.png',
                 shadow: this.field.shadowUrl
-                    || require('leaflet/dist/images/marker-shadow.png'),
+                    || '/vendor/leaflet/dist/images/marker-shadow.png',
                 tileUrl: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
                 mapOptions: {
                     boxZoom: false,
@@ -39,7 +39,7 @@
 
         created: function () {
             delete L.Icon.Default.prototype._getIconUrl;
-            
+
             L.Icon.Default.mergeOptions({
                 iconRetinaUrl: this.iconRetina,
                 iconUrl: this.icon,
@@ -81,12 +81,14 @@
             },
 
             locationIsSet: function () {
-                if (this.value.latitude === undefined) {
+                if (this.value.length === 0) {
                     this.setInitialValue();
                 }
 
-                return this.value.latitude > 0
-                    || this.value.longitude > 0;
+                let value = JSON.parse(this.value);
+
+                return value.latitude > 0
+                    || value.longitude > 0;
             },
 
             locationIsNotSet: function () {
@@ -94,13 +96,15 @@
             },
 
             mapCenter: function () {
-                if (this.value.latitude === undefined) {
+                if (this.value.length === 0) {
                     this.setInitialValue();
                 }
 
+                let value = JSON.parse(this.value);
+
                 return [
-                    this.value.latitude,
-                    this.value.longitude,
+                    (value.latitude || this.field.defaultLatitude || 0),
+                    (value.longitude || this.field.defaultLongitude || 0),
                 ];
             },
         },
@@ -124,10 +128,21 @@
             },
 
             setInitialValue: function () {
-                this.value = {
-                    latitude: this.field.value[this.field.latitude || "latitude"] || 0,
-                    longitude: this.field.value[this.field.longitude || "longitude"] || 0,
-                };
+                let value = JSON.parse(this.value || this.field.value);
+
+                this.setValue(value.latitude, value.longitude);
+            },
+
+            setValue: function (latitude, longitude) {
+                this.value = '{"latitude_field":'
+                    + '"' + (this.field.latitude || 'latitude') + '"'
+                    + ',"longitude_field":'
+                    + '"' + (this.field.longitude || 'longitude') + '"'
+                    + ',"latitude":'
+                    + (latitude || 0)
+                    + ',"longitude":'
+                    + (longitude || 0)
+                    + '}';
             },
         },
     };

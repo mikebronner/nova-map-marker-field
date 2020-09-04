@@ -54,6 +54,7 @@
         mounted: function () {
             this.$nextTick(() => {
                 this.map = this.$refs.map.mapObject;
+                this.setInitialValue();
             });
         },
 
@@ -122,26 +123,8 @@
                 return ((this.field.centerCircle || {}).border || 0);
             },
 
-            firstLocationError: function () {
-                if (this.hasLocationError) {
-                    return (this.errors.first(this.latitudeFieldName)
-                        || this.errors.first(this.longitudeFieldName));
-                }
-            },
-
             hasLocationError: function () {
-                return (this.errors.has(this.latitudeFieldName)
-                    || this.errors.has(this.longitudeFieldName));
-            },
-
-            latitudeFieldName: function () {
-                return this.field.latitude
-                    || "latitude";
-            },
-
-            longitudeFieldName: function () {
-                return this.field.longitude
-                    || "longitude";
+                return this.errors.has(this.field.attribute);
             },
 
             listenToEventName: function () {
@@ -156,55 +139,59 @@
             },
 
             showErrors: function () {
-                console.log(this.errors);
+                // console.error(this.errors);
             },
 
             mapCenter: function () {
-                if (this.value.latitude === undefined) {
+                if (this.value.length === 0) {
                     this.setInitialValue();
                 }
 
+                let value = JSON.parse(this.value);
+
                 return [
-                    this.value.latitude
-                        || this.defaultLatitude,
-                    this.value.longitude
-                        || this.defaultLongitude,
+                    (value.latitude || this.field.defaultLatitude || 0),
+                    (value.longitude || this.field.defaultLongitude || 0),
                 ];
             },
         },
 
         methods: {
             fill: function (formData) {
-                formData.append((this.field.latitude || "latitude"), this.value.latitude);
-                formData.append((this.field.longitude || "longitude"), this.value.longitude);
+                formData.append(this.field.attribute, this.value || '');
             },
 
             handleChange: function (value) {
-                this.value.latitude = value.latitude;
-                this.value.longitude = value.longitude;
+                this.setValue(value.latitude, value.longitude);
             },
 
             mapMoved: function (event) {
                 let coordinates = event.target.getCenter();
 
-                this.value.latitude = coordinates.lat;
-                this.value.longitude = coordinates.lng;
+                this.setValue(coordinates.lat, coordinates.lng);
             },
 
             setInitialValue: function () {
-                this.value = {
-                    latitude: this.field.value[this.field.latitude || "latitude"]
-                        || 0,
-                    longitude: this.field.value[this.field.longitude || "longitude"]
-                        || 0,
-                };
+                let value = JSON.parse(this.value || this.field.value);
+
+                this.setValue(value.latitude, value.longitude);
+            },
+
+            setValue: function (latitude, longitude) {
+                this.value = '{"latitude_field":'
+                    + '"' + (this.field.latitude || 'latitude') + '"'
+                    + ',"longitude_field":'
+                    + '"' + (this.field.longitude || 'longitude') + '"'
+                    + ',"latitude":'
+                    + (latitude || 0)
+                    + ',"longitude":'
+                    + (longitude || 0)
+                    + '}';
             },
 
             mapNewCenter: function (event) {
                 var center = [event.lat, event.long];
-
-                this.value.latitude = event.lat;
-                this.value.longitude = event.long;
+                this.setValue(event.lat, event.long);
                 this.map.panTo(center, {animate:true});
             },
         },
@@ -250,9 +237,6 @@
                     />
                 </l-map>
             </div>
-            <p v-if="hasLocationError" class="my-2 text-danger">
-                {{ firstLocationError }}
-            </p>
         </template>
     </default-field>
 </template>

@@ -14,8 +14,12 @@
     ],
     "require": {
         "illuminate/support": "^7.0",
-        "laravel/nova": "<3.8.4",
+        "laravel/nova": "*",
         "symfony/thanks": "^1.1"
+    },
+    "require-dev": {
+        "sebastian/phpcpd": "^5.0",
+        "squizlabs/php_codesniffer": "^3.4"
     },
     "autoload": {
         "psr-4": {

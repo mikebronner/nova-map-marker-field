@@ -4,23 +4,30 @@ export default {
 
     data: function () {
         return {
-            latitude: this.field.value[this.field.latitude || "latitude"] || 0,
-            longitude: this.field.value[this.field.longitude || "longitude"] || 0,
+            value: JSON.parse(this.field.value || {}),
         };
     },
 
     computed: {
+        latitude: function () {
+            return this.value.latitude;
+        },
+
+        longitude: function () {
+            return this.value.longitude;
+        },
+
         hasLatitude: function () {
-            return (this.latitude.length > 0);
+            return (this.latitude != 0);
         },
 
         hasLongitude: function () {
-            return (this.longitude.length > 0);
+            return (this.longitude != 0);
         },
 
         locationIsSet: function () {
-            return this.latitude > 0
-                || this.longitude > 0;
+            return this.hasLatitude
+                || this.hasLongitude;
         },
 
         locationIsNotSet: function () {
@@ -59,4 +66,3 @@ export default {
         white-space: nowrap;
     }
 </style>
-

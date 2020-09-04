@@ -14,7 +14,6 @@ class Service extends ServiceProvider
 
         Nova::serving(function (ServingNova $event) {
             Nova::script('nova-map-marker-field', __DIR__ . '/../../dist/js/field.js');
-            Nova::style('nova-map-marker-field', __DIR__ . '/../../dist/css/field.css');
         });
     }
 
