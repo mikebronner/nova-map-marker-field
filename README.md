@@ -9,11 +9,8 @@
 This is an MIT-licensed open source project with its ongoing development made possible by the support of the community. If you'd like to support this, and our other packages, please consider [becoming a backer or sponsor on Patreon](https://www.patreon.com/mikebronner).
 
 ## Requirements
-```diff
-- note that this package is not compatible with Nova 3.8.4 and as such requires a lower version to be used until a solution can be found.
-```
-- Laravel 7.0+
-- Nova <3.8.4
+- Laravel 8.0+
+- Nova 3.9+
 
 ## Installation
 1. Install the package:
