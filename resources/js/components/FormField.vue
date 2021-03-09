@@ -218,6 +218,7 @@
                 >
                     <l-tile-layer
                         :url="tileUrl"
+                        :subdomains="field.subdomains"
                     ></l-tile-layer>
                     <l-marker
                         :options="markerOptions"
