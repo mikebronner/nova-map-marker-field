@@ -108,6 +108,11 @@ class MapMarker extends Field
         return $this->withMeta([__FUNCTION__ => $provider]);
     }
 
+    public function tileSubdomains(array $arr = ['a','b','c'])
+    {
+        return $this->withMeta(['subdomains' => $arr ]);
+    }
+
     public function searchProviderKey(string $key)
     {
         return $this->withMeta([__FUNCTION__ => $key]);
