@@ -2,7 +2,7 @@
 
 namespace GeneaLabs\NovaMapMarkerField\Nova\Actions;
 
-use App\Models\ActionEvent;
+use GeneaLabs\NovaMapMarkerField\Models\ActionEvent;
 
 class ActionResource extends \Laravel\Nova\Actions\ActionResource
 {
