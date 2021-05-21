@@ -11,14 +11,24 @@ class ActionEvent extends \Laravel\Nova\Actions\ActionEvent
     /**
      * Create a new action event instance for a resource update.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param \Illuminate\Database\Eloquent\Model $model
      * @return \Laravel\Nova\Actions\ActionEvent
      */
     public static function forResourceUpdate($user, $model)
     {
+        $originalFields = array_intersect_key($model->getRawOriginal(), $model->getDirty());
+        $encodedOriginalField = [];
+        foreach ($originalFields as $key => $value) {
+            if(mb_check_encoding($value)){
+                $encodedOriginalField[$key] = $value;
+            } else {
+                $encodedOriginalField[$key] = is_string($model->{$key}) ? utf8_encode($model->{$key}) : $model->{$key};
+            }
+        }
+
         return new static([
-            'batch_id' => (string) Str::orderedUuid(),
+            'batch_id' => (string)Str::orderedUuid(),
             'user_id' => $user->getAuthIdentifier(),
             'name' => 'Update',
             'actionable_type' => $model->getMorphClass(),
@@ -28,7 +38,7 @@ class ActionEvent extends \Laravel\Nova\Actions\ActionEvent
             'model_type' => $model->getMorphClass(),
             'model_id' => $model->getKey(),
             'fields' => '',
-            'original' => array_intersect_key($model->toArray(), $model->getDirty()),
+            'original' => $encodedOriginalField,
             'changes' => $model->getDirty(),
             'status' => 'finished',
             'exception' => '',
