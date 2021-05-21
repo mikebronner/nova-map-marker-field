@@ -142,9 +142,9 @@ class MapMarker extends Field
         return $this->withMeta([__FUNCTION__ => $provider]);
     }
 
-    public function tileSubdomains(array $arr = ['a', 'b', 'c'])
+    public function tileSubdomains(array $arr = ['a','b','c'])
     {
-        return $this->withMeta(['subdomains' => $arr]);
+        return $this->withMeta(['subdomains' => $arr ]);
     }
 
     public function searchProviderKey(string $key)
@@ -165,8 +165,8 @@ class MapMarker extends Field
         $this->value = json_encode([
             "latitude_field" => $latitudeField,
             "longitude_field" => $longitudeField,
-            "latitude" => (float)$resource->{$latitudeField},
-            "longitude" => (float)$resource->{$longitudeField},
+            "latitude" => (float) $resource->{$latitudeField},
+            "longitude" => (float) $resource->{$longitudeField},
         ]);
     }
 
