@@ -1,5 +1,6 @@
 <?php namespace GeneaLabs\NovaMapMarkerField;
 
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -12,13 +13,30 @@ class MapMarker extends Field
         if ($request->exists($requestAttribute)) {
             $result = json_decode($request->{$requestAttribute}, false);
 
-            $model->{$result->latitude_field} = $this->isNullValue($result->latitude)
-                ? null
-                : $result->latitude;
-            $model->{$result->longitude_field} = $this->isNullValue($result->longitude)
-                ? null
-                : $result->longitude;
+            switch ($this->meta['fieldType']) {
+                case 'point':
+                    $model->{$this->getPointField()} = utf8_encode('ST_POINTFROMTEXT("POINT(' . $result->longitude . ' ' . $result->latitude . ')", ' . $this->getSrid() . ')');
+                    break;
+                default:
+                    $model->{$result->latitude_field} = $this->isNullValue($result->latitude)
+                        ? null
+                        : $result->latitude;
+                    $model->{$result->longitude_field} = $this->isNullValue($result->longitude)
+                        ? null
+                        : $result->longitude;
+                    break;
+            }
         }
+    }
+
+    public function getSrid()
+    {
+        return $this->meta["srid"] ?? "4326";
+    }
+
+    public function getPointField()
+    {
+        return $this->meta["pointField"] ?? "location";
     }
 
     public function getRules(NovaRequest $request)
@@ -84,6 +102,22 @@ class MapMarker extends Field
     }
 
     public function latitude($field)
+    {
+        return $this->withMeta([__FUNCTION__ => $field]);
+    }
+
+    public function fieldType($field)
+    {
+        return $this->withMeta([__FUNCTION__ => $field]);
+    }
+
+
+    public function srid($srid)
+    {
+        return $this->withMeta([__FUNCTION__ => $srid]);
+    }
+
+    public function pointField($field)
     {
         return $this->withMeta([__FUNCTION__ => $field]);
     }
