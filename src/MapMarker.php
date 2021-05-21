@@ -12,8 +12,8 @@ class MapMarker extends Field
     {
         if ($request->exists($requestAttribute)) {
             $result = json_decode($request->{$requestAttribute}, false);
-
-            switch ($this->meta['fieldType']) {
+            $fieldType = $this->meta['fieldType'] ?? 'coordinates';
+            switch ($fieldType) {
                 case 'point':
                     $model->{$this->getPointField()} = DB::raw(utf8_encode('ST_POINTFROMTEXT("POINT(' . $result->longitude . ' ' . $result->latitude . ')", ' . $this->getSrid() . ')'));
                     break;
