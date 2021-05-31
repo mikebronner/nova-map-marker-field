@@ -43,6 +43,25 @@ MapMarker::make("Location")
     ->longitude('long'),
 ```
 
+### Coordinate Field Types
+By default the field will look for `latitude` and `longitude` fields on the
+model. However, if your model uses a spatial field, you may identify the column type 
+and column name with `->fieldType('point')` and `->pointField('column_name')` methods:
+
+```php
+MapMarker::make("Location")
+    ->fieldType('point')
+    ->pointField('location'),
+```
+In order to use spatial columns in Laravel Nova, you must implement a Nova Action Resource Class in config/nova.php
+```
+  'actions' => [
+        'resource' => \GeneaLabs\NovaMapMarkerField\Nova\Actions\ActionResource::class,
+    ],
+```
+
+
+
 ### Default Settings
 You can specify default settings for zoom level, and initial map center
 coordinates. If not specified, the zoom level will default to 12; the
