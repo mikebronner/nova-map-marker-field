@@ -1,5 +1,7 @@
 <?php namespace GeneaLabs\NovaMapMarkerField;
 
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -66,6 +68,17 @@ class MapMarker extends Field
             'border' => $border,
             'opacity' => $opacity,
         ]]);
+    }
+
+    public function polygons(array $polygons)
+    {
+        $polygons = array_map(function ($polygon) {
+            return Collection::make($polygon)->mapWithKeys(function ($value, $key) {
+                return [Str::camel($key) => $value];
+            })->toArray();
+        }, $polygons);
+
+        return $this->withMeta([__FUNCTION__ => $polygons]);
     }
 
     public function defaultLatitude($field)

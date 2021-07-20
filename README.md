@@ -62,6 +62,24 @@ MapMarker::make("Location")
     ->centerCircle($radiusInMeters, $color, $borderWidth, $backgroundOpacity),
 ```
 
+### Polygons
+The optional `polygons()` method allows the addition of multiple polygons to be
+rendered on the map. All props are binded in camelCase to the component. The
+available props are: [leaflet-lpolygon](https://vue2-leaflet.netlify.app/components/LPolygon.html)
+```php
+MapMarker::make("Location")
+    ->polygons([
+        [
+            'lat_lngs' => [
+                [53.2196147965, 6.55656337738],
+                [53.2193963838, 6.55506134033],
+                [53.2197240022, 6.55360221863],
+            ],
+            'color' => 'green',
+        ],
+    ]),
+```
+
 ### Search Provider
 The underlying search capabilities are provided by
 [leaflet-geosearch](https://github.com/smeijer/leaflet-geosearch). Please refer

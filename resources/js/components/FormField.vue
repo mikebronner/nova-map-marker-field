@@ -1,13 +1,14 @@
 <script>
     import { FormField, HandlesValidationErrors } from 'laravel-nova';
     import L from "leaflet";
-    import { LCircle, LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet';
+    import { LCircle, LPolygon, LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet';
     import { BingProvider, EsriProvider, GoogleProvider, LocationIQProvider, OpenCageProvider, OpenStreetMapProvider } from 'leaflet-geosearch';
     import VGeosearch from 'vue2-leaflet-geosearch';
 
     export default {
         components: {
             LCircle,
+            LPolygon,
             LMap,
             LMarker,
             LTileLayer,
@@ -123,6 +124,10 @@
                 return ((this.field.centerCircle || {}).border || 0);
             },
 
+            polygons: function () {
+                return this.field.polygons || [];
+            },
+
             hasLocationError: function () {
                 return this.errors.has(this.field.attribute);
             },
@@ -235,6 +240,11 @@
                         :fillColor="circleColor"
                         :weight="circleStroke"
                         :fillOpacity="circleOpacity"
+                    />
+                    <l-polygon
+                        v-for="(polygon, index) in polygons"
+                        :key="index"
+                        v-bind="polygon"
                     />
                 </l-map>
             </div>

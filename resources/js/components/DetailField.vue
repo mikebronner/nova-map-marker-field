@@ -1,7 +1,7 @@
 <script>
     import {FormField, HandlesValidationErrors} from 'laravel-nova';
     import L from "leaflet";
-    import {LCircle, LMap, LMarker, LTileLayer} from 'vue2-leaflet';
+    import {LCircle, LPolygon, LMap, LMarker, LTileLayer} from 'vue2-leaflet';
 
     export default {
         components: {
@@ -9,6 +9,7 @@
             LMarker,
             LTileLayer,
             LCircle,
+            LPolygon,
         },
 
         mixins: [FormField, HandlesValidationErrors],
@@ -74,6 +75,10 @@
 
             circleStroke: function () {
                 return ((this.field.centerCircle || {}).border || 0);
+            },
+
+            polygons: function () {
+                return this.field.polygons || [];
             },
 
             defaultZoom: function () {
@@ -180,6 +185,11 @@
                     :fillColor="circleColor"
                     :weight="circleStroke"
                     :fillOpacity="circleOpacity"
+                />
+                <l-polygon
+                    v-for="(polygon, index) in polygons"
+                    :key="index"
+                    v-bind="polygon"
                 />
             </l-map>
         </div>
