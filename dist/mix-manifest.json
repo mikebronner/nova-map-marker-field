@@ -1,3 +1,8 @@
 {
-    "/js/field.js": "/js/field.js"
+    "/js/field.js": "/js/field.js",
+    "/vendor/leaflet/dist/images/layers-2x.png": "/vendor/leaflet/dist/images/layers-2x.png",
+    "/vendor/leaflet/dist/images/layers.png": "/vendor/leaflet/dist/images/layers.png",
+    "/vendor/leaflet/dist/images/marker-icon-2x.png": "/vendor/leaflet/dist/images/marker-icon-2x.png",
+    "/vendor/leaflet/dist/images/marker-icon.png": "/vendor/leaflet/dist/images/marker-icon.png",
+    "/vendor/leaflet/dist/images/marker-shadow.png": "/vendor/leaflet/dist/images/marker-shadow.png"
 }

@@ -2,7 +2,7 @@
     import { FormField, HandlesValidationErrors } from 'laravel-nova';
     import L from "leaflet";
     import { LCircle, LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet';
-    import { BingProvider, EsriProvider, GoogleProvider, LocationIQProvider, OpenCageProvider, OpenStreetMapProvider } from 'leaflet-geosearch';
+    import { BingProvider, EsriProvider, GoogleProvider, OpenStreetMapProvider } from 'leaflet-geosearch';
     import VGeosearch from 'vue2-leaflet-geosearch';
 
     export default {
