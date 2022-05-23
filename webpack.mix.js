@@ -4,11 +4,7 @@ let path = require('path')
 require('./nova.mix')
 
 mix
-    .setPublicPath('dist')
-    .js('resources/js/field.js', 'js')
-    .vue()
-    .copy("./node_modules/leaflet/dist/images", "dist/vendor/leaflet/dist/images")
-    .alias({
-        '@': path.join(__dirname, 'resources/js/'),
-    })
-    .nova('{{ name }}')
+  .setPublicPath('dist')
+  .js('resources/js/field.js', 'js')
+  .vue({ version: 3 })
+  .nova('genealabs/nova-map-marker-field')
