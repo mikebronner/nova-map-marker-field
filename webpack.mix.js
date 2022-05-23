@@ -1,5 +1,4 @@
 let mix = require('laravel-mix')
-let path = require('path')
 
 require('./nova.mix')
 
