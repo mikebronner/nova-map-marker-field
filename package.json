@@ -10,19 +10,16 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "@inertiajs/inertia": "^0.11.0",
-        "@vue/babel-plugin-jsx": "^1.1.1",
         "@vue-leaflet/vue-leaflet": "^0.6.1",
         "cross-env": "^7.0.3",
         "laravel-mix": "^6.0.43",
         "laravel-nova": "^1.12.3",
         "leaflet": "^1.8.0",
         "leaflet-geosearch": "^3.6.0",
-        "resolve-url-loader": "2.3.1",
+        "resolve-url-loader": "5.0.0",
         "sass": "^1.52.1",
         "sass-loader": "^13.0.0",
         "vue": "^3.2.36",
-        "vuex": "^4.0.2",
         "vue-loader": "^17.0.0",
         "vue-template-compiler": "^2.6.14"
     },
