@@ -14,7 +14,7 @@ We thank the following sponsors for their generosity, please take a moment to ch
 
 ## Requirements
 - Laravel 9.0+
-- Nova 4.0+
+- Nova 3.9+
 
 ## Installation
 1. Install the package:
