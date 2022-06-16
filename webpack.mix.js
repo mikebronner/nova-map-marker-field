@@ -1,7 +1,9 @@
 let mix = require('laravel-mix')
 
+require('./nova.mix')
+
 mix
-    .setPublicPath('dist')
-    .js('resources/js/field.js', 'js')
-    .copy("./node_modules/leaflet/dist/images", "dist/vendor/leaflet/dist/images")
-;
+  .setPublicPath('dist')
+  .js('resources/js/field.js', 'js')
+  .vue({ version: 3 })
+  .nova('genealabs/nova-map-marker-field')

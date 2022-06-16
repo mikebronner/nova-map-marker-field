@@ -1,9 +1,9 @@
 <script>
     import { FormField, HandlesValidationErrors } from 'laravel-nova';
     import L from "leaflet";
-    import { LCircle, LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet';
-    import { BingProvider, EsriProvider, GoogleProvider, LocationIQProvider, OpenCageProvider, OpenStreetMapProvider } from 'leaflet-geosearch';
-    import VGeosearch from 'vue2-leaflet-geosearch';
+    import { LCircle, LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet';
+    import { BingProvider, EsriProvider, GoogleProvider, OpenStreetMapProvider } from 'leaflet-geosearch';
+    import VGeosearch from './LeafletGeosearch';
 
     export default {
         components: {
@@ -190,21 +190,20 @@
             },
 
             mapNewCenter: function (event) {
-                var center = [event.lat, event.long];
+                const center = [event.lat, event.long];
                 this.setValue(event.lat, event.long);
                 this.map.panTo(center, {animate:true});
             },
         },
     };
 </script>
-
 <template>
     <default-field
         :errors="errors"
         :field="field"
         :full-width-content="true"
     >
-        <template slot="field">
+        <template #field>
             <div class="map-field z-10 p-0 w-full form-control form-input-bordered overflow-hidden relative"
                 :class="mapErrorClasses"
             >

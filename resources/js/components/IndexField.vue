@@ -4,7 +4,7 @@ export default {
 
     data: function () {
         return {
-            value: JSON.parse(this.field.value || {}),
+            value: JSON.parse(this.field.value || '{}'),
         };
     },
 
