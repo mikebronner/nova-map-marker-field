@@ -1,7 +1,7 @@
 <script>
     import {FormField, HandlesValidationErrors} from 'laravel-nova';
     import L from "leaflet";
-    import {LCircle, LMap, LMarker, LTileLayer} from '@vue-leaflet/vue-leaflet';
+    import {LCircle, LMap, LMarker, LTileLayer} from 'vue2-leaflet';
 
     export default {
         components: {
@@ -13,16 +13,16 @@
 
         mixins: [FormField, HandlesValidationErrors],
 
-        props: ['index', 'resource', 'resourceName', 'resourceId', 'field'],
+        props: ['resourceName', 'resourceId', 'field'],
 
         data: function () {
             return {
                 iconRetina: this.field.iconRetinaUrl
-                    || 'images/vendor/leaflet/dist/marker-icon-2x.png',
+                    || '/vendor/leaflet/dist/images/marker-icon-2x.png',
                 icon: this.field.iconUrl
-                    || 'images/vendor/leaflet/dist/marker-icon.png',
+                    || '/vendor/leaflet/dist/images/marker-icon.png',
                 shadow: this.field.shadowUrl
-                    || 'images/vendor/leaflet/dist/marker-shadow.png',
+                    || '/vendor/leaflet/dist/images/marker-shadow.png',
                 tileUrl: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
                 mapOptions: {
                     boxZoom: false,
@@ -146,43 +146,40 @@
 </script>
 
 <template>
-    <panel-item :field="field" :label="field.name">
-        <template #value>
+    <panel-item :field="field">
+        <div slot="value">
             <span
                 v-if="locationIsNotSet"
             >
                 &#8212;
             </span>
-            <div class="map-field">
-                <l-map
-                    v-if="locationIsSet"
-                    class="z-10 w-full form-control form-input-bordered overflow-hidden relative"
-                    ref="map"
-                    :center="mapCenter"
-                    :options="mapOptions"
-                    :zoom="defaultZoom"
-                    @move="mapMoved"
-                    useGlobalLeaflet="true"
-                >
-                    <l-tile-layer
-                        :url="tileUrl"
-                    ></l-tile-layer>
-                    <l-marker
-                        :options="markerOptions"
-                        :lat-lng="mapCenter"
-                    ></l-marker>
-                    <l-circle
-                        v-if="circleHasRadius"
-                        :lat-lng="mapCenter"
-                        :radius="circleRadius"
-                        :color="circleColor"
-                        :fillColor="circleColor"
-                        :weight="circleStroke"
-                        :fillOpacity="circleOpacity"
-                    />
-                </l-map>
-            </div>
-        </template>
+            <l-map
+                v-if="locationIsSet"
+                class="z-10 map-field w-full form-control form-input-bordered overflow-hidden relative"
+                ref="map"
+                :center="mapCenter"
+                :options="mapOptions"
+                :zoom="defaultZoom"
+                @move="mapMoved"
+            >
+                <l-tile-layer
+                    :url="tileUrl"
+                ></l-tile-layer>
+                <l-marker
+                    :options="markerOptions"
+                    :lat-lng="mapCenter"
+                ></l-marker>
+                <l-circle
+                    v-if="circleHasRadius"
+                    :lat-lng="mapCenter"
+                    :radius="circleRadius"
+                    :color="circleColor"
+                    :fillColor="circleColor"
+                    :weight="circleStroke"
+                    :fillOpacity="circleOpacity"
+                />
+            </l-map>
+        </div>
     </panel-item>
 </template>
 
