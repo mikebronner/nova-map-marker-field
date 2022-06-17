@@ -87,8 +87,8 @@
 
                 let value = JSON.parse(this.value);
 
-                return value.latitude > 0
-                    || value.longitude > 0;
+                return value.latitude !== 0
+                    || value.longitude !== 0;
             },
 
             locationIsNotSet: function () {
