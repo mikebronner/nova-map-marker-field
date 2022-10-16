@@ -1,3 +1,5 @@
+This package has been archived until such time that it can be brought up-to-date with Laravel Nova. We have stopped using Laravel Nova, and no longer have a license for it. As such we currently cannot justify further development on this package. Please check here for availability of similar packages: https://novapackages.com
+
 # Map Marker Field for Laravel Nova
 [![GitHub (pre-)release](https://img.shields.io/github/release/GeneaLabs/nova-map-marker-field/all.svg)](https://github.com/GeneaLabs/nova-map-marker-field)
 [![Packagist](https://img.shields.io/packagist/dt/GeneaLabs/nova-map-marker-field.svg)](https://packagist.org/packages/genealabs/nova-map-marker-field)
